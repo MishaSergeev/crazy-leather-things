@@ -1,0 +1,24 @@
+.label-form-dropdown-text {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 0.95rem;
+  gap: 0.3rem;
+}
+.select-form-dropdown-field {
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s ease;
+}
+
+.select-form-dropdown-field:focus {
+  border-color: black;
+}
+.field-error {
+  border: 1px solid red !important;
+}

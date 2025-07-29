@@ -1,0 +1,28 @@
+.button {
+  padding: 4% 4%;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  margin: 2%;
+  font-size: 80%;
+  width: 96%;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button.active {
+  background: #000000;
+  color: #fff;
+}
+.button.focus {
+  border: 1px solid #000000;
+}

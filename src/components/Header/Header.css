@@ -1,0 +1,43 @@
+.header {
+    display: flex;
+    align-items: center;
+    background: #000000;
+}
+
+.header-buttom-container {
+    position: absolute;
+    right: 1%;
+}
+
+.header-buttom-container .MuiIconButton-root {
+    font-size: 0rem;
+}
+
+.header-buttom-container .MuiSvgIcon-root {
+    font-size: 1.3rem;
+}
+
+.header-scroll {
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+}
+
+.header-icon {
+    padding-right: 0.5em;
+    color: #ffffff;
+}
+
+.language-menu {
+    position: absolute;
+    top: 100%;
+    right: 3.2em;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}

@@ -1,0 +1,53 @@
+import { useState } from 'react'
+import { useChangePassword } from '@nhost/react'
+
+import { useTranslation } from '../hooks/useTranslation'
+import Button from '../Button/Button'
+
+import './ChangePassword.css'
+
+export default function ChangePassword() {
+  const t = useTranslation()
+  const { changePassword, isLoading } = useChangePassword()
+
+  const [newPassword, setNewPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setErrorMessage('')
+    setSuccessMessage('')
+
+    const result = await changePassword(newPassword)
+
+    if (result.error) {
+      setErrorMessage(result.error.message)
+    } else {
+      setSuccessMessage(t('password_changed_success'))
+      setNewPassword('')
+    }
+  }
+
+  return (
+    <form className="form-changepassword-container" onSubmit={handleSubmit}>
+      <label className="label-changepassword-text">
+        {t('new_password')}
+        <input
+          className="input-changepassword-field"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+        />
+      </label>
+      <div className="div-changepassword-button">
+        <Button type="submit" disabled={isLoading}>
+          {t('new_password_submit')}
+        </Button>
+      </div>
+      {errorMessage && <p className="p-changepassword-error">{errorMessage}</p>}
+      {successMessage && <p className="p-changepassword-success">{successMessage}</p>}
+    </form>
+  )
+}

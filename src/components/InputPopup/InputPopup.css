@@ -1,0 +1,9 @@
+.div-items-parent-popup {
+    width: 100%;
+    padding: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}

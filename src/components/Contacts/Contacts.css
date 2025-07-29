@@ -1,0 +1,62 @@
+.div-contacts-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: inherit;
+  gap: 0.8rem;
+}
+
+.img-contacts-photo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.h2-contacts-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0;
+}
+
+.p-contacts-role {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.p-contacts-description {
+  text-align: center;
+  max-width: 500px;
+  font-size: 0.95rem;
+}
+
+.div-contacts-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.a-contacts-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.a-contacts-link:hover {
+  color: black;
+}
+
+.icon-contacts-social {
+  font-size: 1.2rem;
+}

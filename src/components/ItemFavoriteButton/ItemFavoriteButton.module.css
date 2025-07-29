@@ -1,0 +1,11 @@
+.div-item-favorite {
+    position: relative;
+    cursor: pointer;
+    margin-left: 85%;
+    margin-top: 5%;
+    z-index: 20;
+}
+
+.div-item-favorite.focus {
+    color: #fff;
+}

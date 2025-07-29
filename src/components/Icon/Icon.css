@@ -1,0 +1,8 @@
+.img-logo{
+    height: 40px;
+    display: flex;
+    padding: 0 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: #000000;
+}

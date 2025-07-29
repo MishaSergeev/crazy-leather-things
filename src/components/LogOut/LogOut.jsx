@@ -1,0 +1,31 @@
+import { useSignOut } from '@nhost/react'
+import { NavLink } from "react-router-dom";
+
+import { useQty } from '../hooks/QtyContext';
+import { useTranslation } from '../hooks/useTranslation';
+import globalDefaults from "../../context/InitialGlobalData";
+import Button from "../Button/Button"
+
+import './LogOut.css';
+
+export default function LogOut() {
+      const t = useTranslation();
+    const { signOut, /* isSuccess, */ isLoading/* , error */ } = useSignOut()
+    const { addItemToFavorite } = useQty()
+
+    const handleLogout = () => {
+        globalDefaults.favorite={}
+        addItemToFavorite()
+        signOut()
+    }
+
+    return (
+        <NavLink to="/">
+            <div className="div-logout-button">
+            <Button onClick={handleLogout}>
+                {isLoading ? t('logout_loading') : t('logout_submit')}
+            </Button>
+            </div>
+        </NavLink>
+    )
+}

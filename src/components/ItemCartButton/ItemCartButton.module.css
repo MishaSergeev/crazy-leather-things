@@ -1,0 +1,13 @@
+.button-item {
+    cursor: pointer;
+    padding: 6%;
+    margin-left: 50%;
+    transition: all 0.3s;
+}
+
+.button-item.focus {
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: #fff
+}

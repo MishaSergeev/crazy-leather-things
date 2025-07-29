@@ -1,0 +1,38 @@
+.dialog-Item-Img {
+  width: 45%;
+  margin: 1% 26.5% 15% 26.5%;
+  padding: 0;
+  border: 0px solid black;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.8)
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 30%;
+  max-height: 80%;
+  overflow: visible;
+}
