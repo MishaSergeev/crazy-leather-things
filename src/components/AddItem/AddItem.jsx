@@ -134,6 +134,7 @@ export default function AddItem() {
             setAlert({ type: 'error', message: t('alert_error_changed') })
         }
     };
+    
 
     return (
         <>
