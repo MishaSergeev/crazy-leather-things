@@ -144,7 +144,7 @@ export default function AddItem() {
                             key={key}
                             label={"add_item_" + key}
                             name={key}
-                            value={itemFields[key]}
+                            value={ItemData[key]}
                             onChange={handleChange}
                             type="text"
                             t={t}

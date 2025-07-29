@@ -147,7 +147,7 @@ export default function UpsertItem({ ...props }) {
                             key={key}
                             label={"add_item_" + key}
                             name={key}
-                            value={itemFields[key]}
+                            value={itemData[key]}
                             onChange={handleChange}
                             type="text"
                             t={t}
