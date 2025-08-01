@@ -40,9 +40,9 @@ export default function UserPage() {
                 {tab === 'Favorites' && (
                     <Favorites />
                 )}
-                {(isAuthenticated && user && user.defaultRole === 'admin')?tab === 'AddItem' && (
+                {(isAuthenticated && user && user.defaultRole === 'admin') ? tab === 'AddItem' && (
                     <AddItem />
-                ):<></>}
+                ) : <></>}
                 {tab === 'ChangePassword' && (
                     <ChangePassword />
                 )}

@@ -1,7 +1,7 @@
 import CalendarInput from "../CalendarInput/CalendarInput";
 import './FormField.css';
 
-export default function FormField({ label, name, value, onChange, t, type, style, important, exception}) {
+export default function FormField({ label, name, value,placeholder, onChange, t, type, style, important, exception}) {
   const isError = important && !value?.trim();
 
   return (
@@ -19,7 +19,8 @@ export default function FormField({ label, name, value, onChange, t, type, style
           name={name}
           value={value}
           autoComplete={name}
-          type={name === "email" ? "email" : name === "phone" ? "tel" : "text"}
+          placeholder={placeholder}
+          type={name === "email" ? "email" : name === "phone" ? "tel" : type}
           onChange={onChange}
           className={`input-form-field ${isError ? 'field-error' : ''}`}
         />

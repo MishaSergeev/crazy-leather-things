@@ -29,11 +29,10 @@ mutation DeleteCartItem($user_id: uuid!, $item_id: String!) {
 }
 `
 export default function Favorites({ onClose }) {
-      const t = useTranslation();
+    const t = useTranslation();
     const { language } = useLanguage();
     const { isAuthenticated } = useAuthenticationStatus()
     const user = useUserData()
-    console.log('user', user)
     const [favoriteData, setfavoriteData] = useState({ ...globalDefaults.favorite });
     const { addItemToFavorite } = useQty()
     const { globalData } = useGlobalData()
@@ -46,13 +45,12 @@ export default function Favorites({ onClose }) {
 
         if (isAuthenticated && user) {
             try {
-                const { data } = await nhost.graphql.request(DELETE_FAVORITES_ITEM, {
+                await nhost.graphql.request(DELETE_FAVORITES_ITEM, {
                     user_id: user.id,
                     item_id: itemId
                 })
-                console.log('Удалено из FAVORITES:', data)
             } catch (err) {
-                console.error('Ошибка удаления из FAVORITES:', err)
+                console.error('Error removing FAVORITES:', err)
             }
         }
     }

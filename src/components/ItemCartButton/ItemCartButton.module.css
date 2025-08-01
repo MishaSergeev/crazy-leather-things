@@ -1,7 +1,8 @@
 .button-item {
     cursor: pointer;
     padding: 6%;
-    margin-left: 50%;
+    margin-left: 100%;
+    transform: translateX(-100%);
     transition: all 0.3s;
 }
 

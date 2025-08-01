@@ -21,7 +21,7 @@ export default function Modal({ children, open, onClose }) {
   }, [open]);
 
   return createPortal(
-    <div 
+    <div
       ref={modalRef}
       className="modal-overlay"
       onClick={handleClick}

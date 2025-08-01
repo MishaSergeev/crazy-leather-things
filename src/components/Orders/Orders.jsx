@@ -46,14 +46,12 @@ export default function Orders() {
             })
             .catch(console.error);
     }, [user]);
-
-
+    const OrdersTitleFileds = ['№', t('orders_date'), t('orders_sum'), t('orders_status')]
     const OrdersTitle = ordersData.length > 0 ?
         <div className='div-title-orders'>
-            <div>№</div>
-            <div>{t('orders_date')}</div>
-            <div>{t('orders_sum')}</div>
-            <div>{t('orders_status')}</div>
+            {OrdersTitleFileds.map((el) => (
+                <div>{el}</div>
+            ))}
         </div> :
         <></>
 

@@ -1,14 +1,15 @@
 .div-upsertitem-form {
-    overflow: scroll;
-    max-height: 75vh;
-    max-width: 90%;
-    margin: 0 auto;
-    padding: 2%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    font-family: inherit;
+  overflow: scroll;
+  max-height: 75vh;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: inherit;
 }
+
 .div-upsertitem-form::-webkit-scrollbar {
   width: 0.5rem;
 }
@@ -23,6 +24,6 @@
 }
 
 .div-upsertitem-button {
-    width: 50%;
-    margin-left: 25%;
+  width: 50%;
+  margin-left: 25%;
 }

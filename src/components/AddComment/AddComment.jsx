@@ -8,7 +8,7 @@ import globalDefaults from "../../context/InitialGlobalData";
 import Alert from '../Alert/Alert'
 import Button from '../Button/Button';
 import UploadImage from '../UploadImage/UploadImage';
-
+import FormField from "../FormField/FormField";
 const GET_LAST_COMMENT_NUMBER = gql`
   query GetLastOrderNumber {
     comments(order_by: { id: desc }, limit: 1) {
@@ -81,15 +81,26 @@ export default function AddComment(...props) {
   };
   return (
     <>
-      <div> {t('your_name')}
-        <input name="user_name" value={UserData.user_name} onChange={handleChange} />
-      </div>
-      <div>
-        {t('review')}
-        <input name="comment" value={UserData.comment} onChange={handleChange} />
-      </div>
+      <FormField
+        key={'add_comment_name'}
+        label={'reviewers_name'}
+        name={"user_name"}
+        value={UserData.user_name}
+        onChange={handleChange}
+        type="text"
+        t={t}
+      />
+      <FormField
+        key={'add_comment_review'}
+        label={'review'}
+        name={"comment"}
+        value={UserData.comment}
+        onChange={handleChange}
+        type="text"
+        t={t}
+      />
 
-      <UploadImage value={imageList} onChange={setImageList} />
+      <UploadImage value={imageList} onChange={setImageList} label={t('reviewers_photo')}/>
 
       <Button onClick={handleSubmit}>{t('submit_comment')}</Button>
       {alert && (

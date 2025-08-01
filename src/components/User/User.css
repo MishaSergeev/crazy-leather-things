@@ -4,7 +4,8 @@
   padding: 1rem;
   gap: 1rem;
 }
+
 .div-user-input {
-    display: grid;
-    grid-template-rows: repeat(auto-fit, 40%)
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 40%)
 }

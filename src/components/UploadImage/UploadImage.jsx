@@ -3,10 +3,13 @@ import { nhost } from '../../nhost';
 
 import { useTranslation } from '../hooks/useTranslation';
 import Button from '../Button/Button';
+import Alert from '../Alert/Alert';
+import './UploadImage.css';
 
-export default function UploadImage({ value = [], onChange }) {
-      const t = useTranslation();
+export default function UploadImage({ value = [], onChange, label }) {
+    const t = useTranslation();
     const [images, setImages] = useState(value);
+    const [alert, setAlert] = useState(null)
     const dragItemIndex = useRef(null);
     const dragOverItemIndex = useRef(null);
 
@@ -27,8 +30,8 @@ export default function UploadImage({ value = [], onChange }) {
             updated.splice(index, 1);
             updateImages(updated);
         } catch (error) {
-            console.error('Ошибка при удалении файла:', error);
-            alert('Не удалось удалить изображение из хранилища.');
+            console.error(t('alert_error_upload_image_1'), error);
+            setAlert({ type: 'error', message: t('alert_error_upload_image_1') });
         }
     };
 
@@ -43,7 +46,7 @@ export default function UploadImage({ value = [], onChange }) {
                 const publicUrl = nhost.storage.getPublicUrl({ fileId: result.fileMetadata.id });
                 uploadedUrls.push(publicUrl);
             } else {
-                alert('Ошибка загрузки файла: ' + file.name);
+                setAlert({ type: 'error', message: (t('alert_error_upload_image_2') + file.name) });
             }
         }
 
@@ -82,36 +85,28 @@ export default function UploadImage({ value = [], onChange }) {
                 const publicUrl = nhost.storage.getPublicUrl({ fileId: result.fileMetadata.id });
                 uploadedUrls.push(publicUrl);
             } else {
-                alert('Ошибка загрузки файла: ' + file.name);
+                setAlert({ type: 'error', message: (t('alert_error_upload_image_2') + file.name) });
             }
         }
         updateImages([...images, ...uploadedUrls]);
     };
 
     return (
-        <div>
+        <label className="label-upload-image">{label}
             <div
+                className="div-upload-image-dropzone"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
-                style={{
-                    border: '2px dashed #aaa',
-                    borderRadius: '8px',
-                    padding: '1rem',
-                    textAlign: 'center',
-                    color: '#555',
-                    cursor: 'pointer',
-                    marginBottom: '1rem',
-                }}
                 onClick={() => document.getElementById('fileInput').click()}
             >
                 {t('upload_image')}
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+            <div className="div-upload-image-preview-container">
                 {images.map((url, index) => (
                     <div
                         key={url}
-                        style={{ position: 'relative', cursor: 'grab' }}
+                        className="div-upload-image-item"
                         draggable
                         onDragStart={() => handleDragStart(index)}
                         onDragEnter={() => handleDragEnter(index)}
@@ -121,16 +116,10 @@ export default function UploadImage({ value = [], onChange }) {
                         <img
                             src={url}
                             alt={`img-${index}`}
-                            style={{ width: '120px', height: 'auto', borderRadius: '8px', display: 'block' }}
+                            className="img-upload-image"
                         />
                         <Button
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                right: 0,
-                                width: '20%',
-                                lineHeight: 1,
-                            }}
+                            className="button-upload-image-remove"
                             onClick={() => handleImageRemove(index)}
                             aria-label={`Remove img ${index + 1}`}
                         >
@@ -148,6 +137,7 @@ export default function UploadImage({ value = [], onChange }) {
                 onChange={handleImageUpload}
                 style={{ display: 'none' }}
             />
-        </div>
+            {alert && <Alert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+        </label>
     );
 }

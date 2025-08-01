@@ -1,14 +1,11 @@
 .swiper {
     width: 100%;
-    /* height: 100px; */
 }
 
 .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
-
-    /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +28,7 @@
     --swiper-navigation-color: #000000;
     --swiper-navigation-size: 1fr;
 }
-:root{
-    --swiper-theme-color:#fff; 
+
+:root {
+    --swiper-theme-color: #fff;
 }

@@ -70,7 +70,7 @@ export default function OrderDetails() {
     if (!order) return <p>Завантаження...</p>;
 
     return (
-        <div className='div-user-page'>
+        <div className='div-order-detailes'>
             <div className="div-order-detailes-info">
                 <h2>{t('order_number')} {order.order_number}</h2>
                 <p>{t('order_status')} {order.status}</p>

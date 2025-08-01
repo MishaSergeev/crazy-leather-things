@@ -104,9 +104,8 @@ export default function AddCustomOrder() {
           t={t}
         />
       ))}
-
-      <label className="label-addcustomorder-text">{t('custom_order_image')}</label>
-      <UploadImage value={imageList} onChange={setImageList} />
+      
+      <UploadImage value={imageList} onChange={setImageList} label={t('custom_order_image')} />
 
       <div className="div-addcustomorder-button">
         <NavLink to="/">

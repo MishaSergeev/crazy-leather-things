@@ -30,48 +30,48 @@ const UPSERT_CART = gql`
   }
 `;
 export default function ItemCartButton(...props) {
-    const [isMouseOver, setMouseOver] = useState(false)
-    const [isModal, setIsModal] = useState(false)
-    const { addItemToCart } = useQty()
-    const { isAuthenticated } = useAuthenticationStatus()
-    const user = useUserData()
-    const handleOpen = () => setIsModal(true);
-    const handleClose = () => setIsModal(false);
-    const addToCartButton = async () => {
-        const itemId = props[0].data.id
-        const inventory = props[0].data.inventory
-        //const newQty = props[0].data.qty
-        const currentQty = GlobalData.cart[itemId]?.qty
-        GlobalData.cart[itemId] ?
-            (GlobalData.cart[itemId].qty = (currentQty + 1) > inventory ? inventory : (currentQty + 1)) :
-            (GlobalData.cart[itemId] = {
-                qty: 1//inventory ? inventory : newQty,
-            }
-            )
-        if (isAuthenticated && user) {
-            try {
-                await nhost.graphql.request(UPSERT_CART, {
-                    user_id: user.id,
-                    item_id: itemId,
-                    qty: Number(GlobalData.cart[itemId].qty)
-                })
-            } catch (err) {
-                console.error('Cart GraphQL error:', err)
-            }
-        }
-        addItemToCart()
-        handleOpen()
+  const [isMouseOver, setMouseOver] = useState(false)
+  const [isModal, setIsModal] = useState(false)
+  const { addItemToCart } = useQty()
+  const { isAuthenticated } = useAuthenticationStatus()
+  const user = useUserData()
+  const handleOpen = () => setIsModal(true);
+  const handleClose = () => setIsModal(false);
+  const addToCartButton = async () => {
+    const itemId = props[0].data.id
+    const inventory = props[0].data.inventory
+    const currentQty = GlobalData.cart[itemId]?.qty
+    GlobalData.cart[itemId] ?
+      (GlobalData.cart[itemId].qty = (currentQty + 1) > inventory ? inventory : (currentQty + 1)) :
+      (GlobalData.cart[itemId] = {
+        qty: 1
+      }
+      )
+    localStorage.setItem('cart', JSON.stringify(GlobalData.cart));
+    if (isAuthenticated && user) {
+      try {
+        await nhost.graphql.request(UPSERT_CART, {
+          user_id: user.id,
+          item_id: itemId,
+          qty: Number(GlobalData.cart[itemId].qty)
+        })
+      } catch (err) {
+        console.error('Cart GraphQL error:', err)
+      }
     }
-    return (
-        <>
-            <ShoppingCartIcon
-                onMouseOver={() => setMouseOver(true)}
-                onMouseOut={() => setMouseOver(false)}
-                className={isMouseOver ? `${classes['button-item']} ${classes.focus}` : classes['button-item']}
-                onClick={addToCartButton} />
-            <Modal open={isModal} onClose={handleClose}>
-                <Cart onClose={handleClose} />
-            </Modal>
-        </>
-    )
+    addItemToCart()
+    handleOpen()
+  }
+  return (
+    <>
+      <ShoppingCartIcon
+        onMouseOver={() => setMouseOver(true)}
+        onMouseOut={() => setMouseOver(false)}
+        className={isMouseOver ? `${classes['button-item']} ${classes.focus}` : classes['button-item']}
+        onClick={addToCartButton} />
+      <Modal open={isModal} onClose={handleClose}>
+        <Cart onClose={handleClose} />
+      </Modal>
+    </>
+  )
 }

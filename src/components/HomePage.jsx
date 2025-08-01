@@ -24,7 +24,7 @@ export default function HomePage() {
         )}
         {tab === 'customOrder' && (
           <>
-            <AddCustomOrder/>
+            <AddCustomOrder />
           </>
         )}
         {tab === 'feedback' && (
@@ -37,7 +37,7 @@ export default function HomePage() {
           <About />
         )}
         {tab === 'contacts' && (
-          <Contacts/>
+          <Contacts />
         )}
       </main>
     </>

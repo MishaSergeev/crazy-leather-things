@@ -119,7 +119,7 @@ export default function AddItem() {
 
         try {
             const src = imageList.join(",")
-            const updateRes = await nhost.graphql.request(UPSERT_ITEMS, {
+            await nhost.graphql.request(UPSERT_ITEMS, {
                 ...ItemData,
                 src: src
             });
@@ -127,10 +127,9 @@ export default function AddItem() {
                 ...ItemData,
                 src: src
             }
-            console.log('updateRes', updateRes)
             setAlert({ type: 'success', message: t('alert_success_changed') })
         } catch (error) {
-            console.error("Помилка при збереженні:", error);
+            console.error(t('alert_error_changed'), error);
             setAlert({ type: 'error', message: t('alert_error_changed') })
         }
     };

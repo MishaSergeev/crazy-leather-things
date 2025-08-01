@@ -3,6 +3,7 @@ import { useSignUpEmailPassword } from '@nhost/react'
 
 import { useTranslation } from '../hooks/useTranslation';
 import Button from '../Button/Button';
+import FormField from "../FormField/FormField";
 
 import './Registration.css'
 
@@ -33,36 +34,36 @@ export default function Registration({ onClose }) {
     }
     return (
         <form className="form-regist" onSubmit={handleSubmit}>
-            <div className="div-regist-input">
-                {t('registration_email')}
-                <input
-                    type="email"
-                    placeholder="Email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div className="div-regist-input">
-                {t('registration_password_1')}:
-                <input
-                    type="password"
-                    placeholder={t('registration_password_1')}
-                    autoComplete="registration-password-1"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <div className="div-regist-input">
-                {t('registration_password_2')}:
-                <input
-                    type="password"
-                    placeholder={t('registration_password_2')}
-                    autoComplete="registration-password-2"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-            </div>
+            <FormField
+                key={'registration_email'}
+                label={'registration_email'}
+                name={"email"}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                type="email"
+                t={t}
+            />
+            <FormField
+                key={'registration_password_1'}
+                label={'registration_password_1'}
+                name={"registration-password-1"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={t('registration_password_1')}
+                type="password"
+                t={t}
+            />
+            <FormField
+                key={'registration_password_2'}
+                label={'registration_password_2'}
+                name={"registration-password-2"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder={t('registration_password_2')}
+                type="password"
+                t={t}
+            />
             {isSuccess && !needsEmailVerification && (
                 <div className="div-regist-success">{t('registration_success')}</div>
             )}

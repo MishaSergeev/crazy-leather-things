@@ -9,12 +9,12 @@ import Button from "../Button/Button"
 import './LogOut.css';
 
 export default function LogOut() {
-      const t = useTranslation();
+    const t = useTranslation();
     const { signOut, /* isSuccess, */ isLoading/* , error */ } = useSignOut()
     const { addItemToFavorite } = useQty()
 
     const handleLogout = () => {
-        globalDefaults.favorite={}
+        globalDefaults.favorite = {}
         addItemToFavorite()
         signOut()
     }
@@ -22,9 +22,9 @@ export default function LogOut() {
     return (
         <NavLink to="/">
             <div className="div-logout-button">
-            <Button onClick={handleLogout}>
-                {isLoading ? t('logout_loading') : t('logout_submit')}
-            </Button>
+                <Button onClick={handleLogout}>
+                    {isLoading ? t('logout_loading') : t('logout_submit')}
+                </Button>
             </div>
         </NavLink>
     )

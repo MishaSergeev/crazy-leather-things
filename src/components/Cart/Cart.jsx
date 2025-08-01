@@ -5,6 +5,7 @@ import { useUserData, useAuthenticationStatus } from '@nhost/react';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { nhost } from '../../nhost';
+import { roundToTwo } from '../../utils/round';
 import globalDefaults from "../../context/InitialGlobalData";
 import { useGlobalData } from '../../context/GlobalDataContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,6 +13,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import { useQty } from '../hooks/QtyContext';
 import Button from "../Button/Button";
 import ItemImg from "../ItemImg/ItemImg";
+import InputField from '../InputField/InputField';
 
 import './Cart.css';
 
@@ -87,6 +89,7 @@ export default function Cart({ onClose }) {
         setCartData(updatedCart);
         delete globalDefaults.cart[itemId];
         addItemToCart()
+        localStorage.setItem('cart', JSON.stringify(globalDefaults.cart));
         if (isAuthenticated && user) {
             try {
                 await nhost.graphql.request(DELETE_CART_ITEM, {
@@ -98,14 +101,12 @@ export default function Cart({ onClose }) {
             }
         }
     }
-
+    const CartTitleFileds = ['', t('iten_name'), t('iten_qty'), t('iten_price'), '']
     const CartTitle = Object.keys(globalDefaults.cart).length > 0 ?
         <div className='div-title-cart'>
-            <div></div>
-            <div>{t('iten_name')}</div>
-            <div>{t('iten_qty')}</div>
-            <div>{t('iten_price')}</div>
-            <div></div>
+            {CartTitleFileds.map((el) => (
+                <div>{el}</div>
+            ))}
         </div> :
         <></>
     const ItemsInCart = Object.keys(globalDefaults.cart).length > 0 ?
@@ -123,11 +124,20 @@ export default function Cart({ onClose }) {
                     onClick={onClose}>
                     <div>{globalData.Items[key].description}</div>
                 </NavLink>
-                <input
-                    ref={(el) => (inputRefs.current[key] = el)}
+                <InputField
+                    inputRef={(el) => (inputRefs.current[key] = el)}
                     value={globalDefaults.cart[key].qty}
-                    onChange={(e) => handleQtyChange(key, globalDefaults.cart[key].qty, e.target.value)}
-                    onFocus={() => handleFocus(key)} />
+                    onChange={(e) =>
+                        handleQtyChange(key, globalDefaults.cart[key].qty, e.target.value)
+                    }
+                    onFocus={() => handleFocus(key)}
+                    onIncrement={() =>
+                        handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty + 1)
+                    }
+                    onDecrement={() =>
+                        handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty - 1)
+                    }
+                />
                 <div>{globalData.Items[key].price} {globalDefaults.currency[language]}</div>
                 <CloseIcon onClick={() => removeItemFromCart(key)} />
             </div>
@@ -139,6 +149,7 @@ export default function Cart({ onClose }) {
     for (let key in globalDefaults.cart) {
         TotalSum += globalDefaults.cart[key].qty * globalData.Items[key].price
     }
+    TotalSum = roundToTwo(TotalSum)
     const SubmitOrder = Object.keys(globalDefaults.cart).length > 0 ?
         <div className='div-submit-cart-container'>
             <div className='div-cart-total'>{t('sum')} {TotalSum} {Currency}</div>
@@ -159,8 +170,8 @@ export default function Cart({ onClose }) {
         <></>
     return (
         <>
-            {CartTitle}
             <div className='div-items-cart-container'>
+                {CartTitle}
                 <div className='div-items-cart-parent'>
                     {ItemsInCart}
                 </div>

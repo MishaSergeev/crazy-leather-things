@@ -5,11 +5,12 @@
   font-size: 0.95rem;
   gap: 0.3rem;
 }
+
 .input-form-field {
   padding: 0.6rem 1rem;
   font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid #000000;
+  border-radius: 0.5rem;
   outline: none;
   width: 100%;
   box-sizing: border-box;
@@ -19,6 +20,7 @@
 .input-form-field:focus {
   border-color: black;
 }
+
 .field-error {
   border: 1px solid red !important;
 }

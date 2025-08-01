@@ -1,5 +1,4 @@
 .swiper-about{
-    /* height: 40vh; */
     width: 60%;
     margin-left: 20%;
 }
@@ -10,4 +9,18 @@
     height: 40em;
     margin-left: 20%;
     margin-right: 20%;
+}
+@media (max-width: 768px) {
+.swiper-about{
+    width: 100%;
+    margin-left: 0;
+}
+.title-about{
+    text-align: center;
+}
+.body-about{
+    height: 40em;
+    margin-left: 1%;
+    margin-right: 1%;
+}
 }

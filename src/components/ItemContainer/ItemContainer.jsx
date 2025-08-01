@@ -23,10 +23,10 @@ export default function ItemsContainer() {
   const items = Object.values(globalData.Items)
     .filter(item => category === globalDefaults.Categories[language] || item.category === category)
     .filter(item => item.description?.toLowerCase().includes(filter.toLowerCase()))
-  
+
   const sortedItems = [...items].sort((a, b) => {
-    if (sortOrder === 'newest') return new Date(b.date).getTime()-new Date(a.date).getTime();
-    if (sortOrder === 'oldest') return new Date(a.date).getTime()-new Date(b.date).getTime();
+    if (sortOrder === 'newest') return new Date(b.date).getTime() - new Date(a.date).getTime();
+    if (sortOrder === 'oldest') return new Date(a.date).getTime() - new Date(b.date).getTime();
     if (sortOrder === 'price_asc') return a.price - b.price;
     if (sortOrder === 'price_desc') return b.price - a.price;
     return 0;
@@ -44,7 +44,7 @@ export default function ItemsContainer() {
   }, [language]);
 
   useEffect(() => {
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [category, sortOrder]);
 
   return (

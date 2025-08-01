@@ -16,15 +16,15 @@ export default function FormFieldDropDown({
         {firstOption && <option value="">{t(firstOption)}</option>}
         {type === 'object'
           ? options?.map((el) => (
-              <option key={el.Ref} value={el.Ref}>
-                {el.Description}
-              </option>
-            ))
+            <option key={el.Ref} value={el.Ref}>
+              {el.Description}
+            </option>
+          ))
           : options?.map((el) => (
-              <option key={el} value={el}>
-                {t(el)}
-              </option>
-            ))}
+            <option key={el} value={el}>
+              {t(el)}
+            </option>
+          ))}
       </select>
     </label>
   );

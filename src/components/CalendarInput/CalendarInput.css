@@ -30,7 +30,6 @@
   color: black !important;
   font-size: 1.2rem;
   content: '×';
-  /* Чёрный крестик */
   position: absolute;
   top: 0;
   left: 0;

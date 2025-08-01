@@ -3,13 +3,14 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { NhostReactProvider } from '@nhost/react';
+import { NhostProvider } from '@nhost/react';
 
 import { nhost } from './nhost';
 import { GlobalDataProvider, useGlobalData } from './context/GlobalDataContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { FilterProvider } from "./components/hooks/FilterContext";
 import { QtyProvider } from "./components/hooks/QtyContext";
+import Loader from './components/Loader/Loader';
 import Header from './components/Header/Header';
 import ItemPage from "./components/ItemPage/ItemPage";
 import UpsertItem from "./components/UpsertItem/UpsertItem";
@@ -23,7 +24,8 @@ import OrderDetails from './components/OrderDetails/OrderDetails';
 
 function InnerRoutes() {
   const { globalData, loading } = useGlobalData();
-  if (loading) return <div>Загрузка данных...</div>;
+
+  if (loading) return <Loader />;
 
   const ItemsRoutes = Object.keys(globalData.Items).map((key) =>
     <Route
@@ -63,15 +65,15 @@ function InnerRoutes() {
 export default function App() {
   return (
     <LanguageProvider>
-      <NhostReactProvider nhost={nhost}>
-        <GlobalDataProvider>
-          <QtyProvider>
+      <NhostProvider nhost={nhost}>
+        <QtyProvider>
+          <GlobalDataProvider>
             <FilterProvider>
               <InnerRoutes />
             </FilterProvider>
-          </QtyProvider>
-        </GlobalDataProvider>
-      </NhostReactProvider>
+          </GlobalDataProvider>
+        </QtyProvider>
+      </NhostProvider>
     </LanguageProvider>
   );
 }

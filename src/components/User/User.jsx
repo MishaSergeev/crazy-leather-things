@@ -8,7 +8,7 @@ import './User.css'
 
 export default function User({ onClose }) {
     const [tab, setTab] = useState('Login')
-    
+
     return (
         <>
             <div className='div-user-container'>
@@ -17,10 +17,10 @@ export default function User({ onClose }) {
                     onChange={(current) => setTab(current)}
                     space={'User'} />
                 {tab === 'Login' && (
-                    <LogIn onClose={onClose}/>
+                    <LogIn onClose={onClose} />
                 )}
                 {tab === 'Registration' && (
-                    <Registration onClose={onClose}/>
+                    <Registration onClose={onClose} />
                 )}
             </div>
         </>

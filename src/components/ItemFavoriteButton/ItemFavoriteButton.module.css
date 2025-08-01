@@ -1,8 +1,8 @@
 .div-item-favorite {
     position: relative;
     cursor: pointer;
-    margin-left: 85%;
-    margin-top: 5%;
+    margin-left: 100%;
+    transform: translateX(-150%) translateY(50%);
     z-index: 20;
 }
 

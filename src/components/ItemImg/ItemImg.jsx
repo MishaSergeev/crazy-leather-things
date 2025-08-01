@@ -20,9 +20,7 @@ export default function ItemImg({ ...props }) {
         }
     }
     const handleClose = () => setIsModal(false);
-    //console.log('props.data.src',props.data.src)
     const src = props.data.src.split(",")
-    //console.log('src',src)
     return (
         <>
             <ItemFavoriteButton data={props.data} />
@@ -30,11 +28,11 @@ export default function ItemImg({ ...props }) {
                 style={{
                     display: 'contents'
                 }}
-                /* onClick={props.onClick} */ >
+            >
                 <SwiperItem onClick={handleOpen} data={src} id={props.data.id} />
             </NavLink>
             <Modal open={isModal} onClose={handleClose} isItemImg={true}>
-                <SwiperItemImg data={src} id={props.data.id}/>
+                <SwiperItemImg data={src} id={props.data.id} />
                 <h3 className='h3-item-description'>{props.data.description}</h3>
             </Modal>
         </>

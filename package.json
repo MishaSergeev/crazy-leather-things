@@ -9,7 +9,7 @@
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
     "@nhost/nhost-js": "^3.2.8",
-    "@nhost/react": "^3.10.4",
+    "@nhost/react": "^3.11.1",
     "@nhost/react-apollo": "^18.0.1",
     "@supabase/supabase-js": "^2.49.4",
     "cra-template": "1.2.0",

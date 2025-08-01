@@ -1,4 +1,4 @@
-import { useState, useContext} from 'react'
+import { useState, useContext } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 
 import { FilterContext } from '../hooks/FilterContext';
@@ -9,7 +9,7 @@ import ItemsGrid from '../Items/Items';
 import classes from './SearchInput.module.css'
 
 export default function SearchInput({ isOpen, onClose }) {
-        const t = useTranslation();
+    const t = useTranslation();
     const [isFocus, setIsFocus] = useState(false)
     const { filter, setFilter } = useContext(FilterContext);
     const { globalData } = useGlobalData()
@@ -17,9 +17,9 @@ export default function SearchInput({ isOpen, onClose }) {
         setFilter(event.target.value);
     };
     const handleClick = (event) => {
-        if (event.target.id === 'search-container'||event.target.id === '') {
+        if (event.target.id === 'search-container' || event.target.id === '') {
             onClose();
-            console.log('event.target.value',event.target.value)
+            console.log('event.target.value', event.target.value)
             setFilter('')
         }
     };
@@ -29,7 +29,7 @@ export default function SearchInput({ isOpen, onClose }) {
     return (
         <>
             <div
-            id='search-container'
+                id='search-container'
                 className={
                     isOpen ? `${classes["search-box"]} ${classes["search-box-show"]}` : classes["search-box"]
                 }
@@ -43,7 +43,6 @@ export default function SearchInput({ isOpen, onClose }) {
                         id='inputSearch'
                         onFocus={() => setIsFocus(true)}
                         onBlur={() => setIsFocus(false)}
-                        //{...input}
                         value={filter}
                         onChange={handleChange}
                         className={

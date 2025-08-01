@@ -98,7 +98,6 @@ export default function Header() {
           <IconButton>
             <StyledBadge badgeContent={favoriteQty} color="primary" >
               {favoritesSign}
-              {/* <NavLink to="/Favorites"><FavoriteBorderIcon className='header-icon' /></NavLink> */}
             </StyledBadge >
           </IconButton>
 
@@ -110,7 +109,6 @@ export default function Header() {
 
           <IconButton>
             {userSign}
-            {/* <AccountCircleIcon className='header-icon' onClick={handleUserOpen} /> */}
           </IconButton>
 
 
@@ -140,8 +138,6 @@ export default function Header() {
               <SiEtsy fontSize={"1.05rem"} className='header-icon' />
             </a>
           </IconButton>
-
-
 
           <Modal open={isModal} onClose={handleClose}>
             {modalContext}

@@ -22,9 +22,9 @@ export default function Modal({ children, open, onClose, isItemImg }) {
 
   return createPortal(
     <dialog
-      className={isItemImg&&open ? `${classes.dialog} ${classes.itemimg}` : classes.dialog}
+      className={isItemImg && open ? `${classes.dialog} ${classes.itemimg}` : classes.dialog}
       ref={dialog} onClick={handleClick}>
-      <div className={isItemImg&&open ? `${classes.modalcontent} ${classes.modalcontentitemimg}` : classes.modalcontent}>{children}</div>
+      <div className={isItemImg && open ? `${classes.modalcontent} ${classes.modalcontentitemimg}` : classes.modalcontent}>{children}</div>
     </dialog>,
     document.getElementById('modal')
   )

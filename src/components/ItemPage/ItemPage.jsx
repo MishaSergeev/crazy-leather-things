@@ -29,6 +29,11 @@ export default function ItemPage({ ...props }) {
   const modalContext = isAuthenticated && user ?
     <AddComment Item={props.id} onClose={handleClose} /> :
     <User onClose={handleClose} />
+  const ItemFileds = [
+    { name: t('price'), value: props.data.price + ' ' + globalDefaults.currency[language] },
+    { name: t('color'), value: props.data.color },
+    { name: t('inventory'), value: props.data.inventory },
+  ]
 
   return (
     <div className='div-item-page'>
@@ -38,21 +43,15 @@ export default function ItemPage({ ...props }) {
           <ItemImg data={props.data} />
         </div>
         <div className="div-item-page-info">
+          <div className="div-itempage-description">{props.data.description_full}</div>
           <div className="div-item-page-container">
             <div>
-              <div className="div-itempage-description">{props.data.description_full}</div>
-              <div className="div-itempage-attrs-row">
-                <span className="span-itempage-label">{t('price')}</span>
-                <span className="span-itempage-value">{props.data.price} {globalDefaults.currency[language]}</span>
-              </div>
-              <div className="div-itempage-attrs-row">
-                <span className="span-itempage-label">{t('color')}</span>
-                <span className="span-itempage-value">{props.data.color}</span>
-              </div>
-              <div className="div-itempage-attrs-row">
-                <span className="span-itempage-label">{t('inventory')}</span>
-                <span className="span-itempage-value">{props.data.inventory}</span>
-              </div>
+              {ItemFileds.map((el) => (
+                <div className="div-itempage-attrs-row">
+                  <span className="span-itempage-label">{el.name}</span>
+                  <span className="span-itempage-value">{el.value}</span>
+                </div>
+              ))}
             </div>
             <div>
               <NavLink to={props.data.link + '/Upsert'}

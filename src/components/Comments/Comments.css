@@ -49,3 +49,11 @@
     background: black;
     color: white;
 }
+
+@media (max-width: 768px) {
+
+.div-items-comments-container {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+}
