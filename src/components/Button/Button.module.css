@@ -30,7 +30,7 @@
 
 @media (max-width: 768px) {
   .button {
-    /* border: 0.1px solid #000000; */
-    font-size: 65%;
+    border: 0.1px solid #000000;
+    /* font-size: 65%; */
   }
 }

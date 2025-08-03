@@ -11,3 +11,9 @@
     width: 80%;
     padding: 0.5em;
 }
+@media (max-width: 768px) {
+.div-user-page-content{
+    width: 100%;
+    padding: 0;
+}
+}

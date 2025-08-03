@@ -55,6 +55,7 @@ export default function Cart({ onClose }) {
     const [cartData, setCartData] = useState({ ...globalDefaults.cart });
     const { addItemToCart } = useQty()
     const inputRefs = useRef({});
+    const isMobile = window.innerWidth <= 768;
 
     const handleFocus = (key) => {
         inputRefs.current[key]?.select();
@@ -101,45 +102,51 @@ export default function Cart({ onClose }) {
             }
         }
     }
-    const CartTitleFileds = ['', t('iten_name'), t('iten_qty'), t('iten_price'), '']
+    const CartTitleFileds = [' ', t('iten_name'), t('iten_qty'), t('iten_price'), '  ']
     const CartTitle = Object.keys(globalDefaults.cart).length > 0 ?
         <div className='div-title-cart'>
             {CartTitleFileds.map((el) => (
-                <div>{el}</div>
-            ))}
+                <div key={'CT' + el}>{el}</div>
+            )
+            )}
         </div> :
         <></>
     const ItemsInCart = Object.keys(globalDefaults.cart).length > 0 ?
         Object.keys(globalDefaults.cart).map((key) => (
-            <div className='div-items-cart-child' key={key}>
-                <div className='img-item-cart'>
+            <div key={'cart_' + key}>
+                {isMobile && <div className='img-item-cart'>
                     <ItemImg data={globalData.Items[key]} onClick={onClose} />
+                </div>}
+                <div className='div-items-cart-child'>
+                    {!isMobile && <div className='img-item-cart'>
+                        <ItemImg data={globalData.Items[key]} onClick={onClose} />
+                    </div>}
+                    <NavLink
+                        to={globalData.Items[key].link}
+                        style={{
+                            color: '#000000',
+                            textDecoration: 'none'
+                        }}
+                        onClick={onClose}>
+                        <div>{globalData.Items[key].description}</div>
+                    </NavLink>
+                    <InputField
+                        inputRef={(el) => (inputRefs.current[key] = el)}
+                        value={globalDefaults.cart[key].qty}
+                        onChange={(e) =>
+                            handleQtyChange(key, globalDefaults.cart[key].qty, e.target.value)
+                        }
+                        onFocus={() => handleFocus(key)}
+                        onIncrement={() =>
+                            handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty + 1)
+                        }
+                        onDecrement={() =>
+                            handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty - 1)
+                        }
+                    />
+                    <div>{globalData.Items[key].price} {globalDefaults.currency[language]}</div>
+                    <CloseIcon onClick={() => removeItemFromCart(key)} />
                 </div>
-                <NavLink
-                    to={globalData.Items[key].link}
-                    style={{
-                        color: '#000000',
-                        textDecoration: 'none'
-                    }}
-                    onClick={onClose}>
-                    <div>{globalData.Items[key].description}</div>
-                </NavLink>
-                <InputField
-                    inputRef={(el) => (inputRefs.current[key] = el)}
-                    value={globalDefaults.cart[key].qty}
-                    onChange={(e) =>
-                        handleQtyChange(key, globalDefaults.cart[key].qty, e.target.value)
-                    }
-                    onFocus={() => handleFocus(key)}
-                    onIncrement={() =>
-                        handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty + 1)
-                    }
-                    onDecrement={() =>
-                        handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty - 1)
-                    }
-                />
-                <div>{globalData.Items[key].price} {globalDefaults.currency[language]}</div>
-                <CloseIcon onClick={() => removeItemFromCart(key)} />
             </div>
         )) :
         <div className='div-empty-cart'>{t('cart_empty')}</div>
@@ -171,7 +178,7 @@ export default function Cart({ onClose }) {
     return (
         <>
             <div className='div-items-cart-container'>
-                {CartTitle}
+                {!isMobile && CartTitle}
                 <div className='div-items-cart-parent'>
                     {ItemsInCart}
                 </div>

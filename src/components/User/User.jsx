@@ -8,7 +8,6 @@ import './User.css'
 
 export default function User({ onClose }) {
     const [tab, setTab] = useState('Login')
-
     return (
         <>
             <div className='div-user-container'>

@@ -143,7 +143,7 @@ export const GlobalDataProvider = ({ children }) => {
   useEffect(() => {
     if (!globalData.Items || Object.keys(globalData.Items).length === 0) return;
     if (loading) return;
-    if (!user?.id) {
+    if (!user?.id && localStorage.getItem('cart')) {
       const fetchCart = async () => {
         try {
           const savedCart = localStorage.getItem('cart');

@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuthenticationStatus } from '@nhost/react'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { SiEtsy } from 'react-icons/si';
+import MenuIcon from '@mui/icons-material/Menu';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -51,6 +52,13 @@ export default function Header() {
   const [showLangButtons, setShowLangButtons] = useState(false);
   const langRef = useRef(null);
   const { language, changeLanguage } = useLanguage('uk');
+  const languages = { 'en': 'EN', 'uk': 'UK' }
+  const isMobile = window.innerWidth <= 768;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(prev => !prev);
+  };
 
   useEffect(() => {
     if (location.pathname !== "/" && tab !== '') {
@@ -80,8 +88,13 @@ export default function Header() {
     <Cart onClose={handleClose} /> :
     <User onClose={handleClose} />
 
+  const navigate = useNavigate();
+
+  const handleUserIconClick = () => {
+    navigate('/UserPage', { state: { openMenu: true } });
+  };
   const userSign = isAuthenticated ?
-    <NavLink to="/UserPage"><AccountCircleIcon className='header-icon' /></NavLink> :
+    <AccountCircleIcon className="header-icon" onClick={handleUserIconClick} /> :
     <AccountCircleIcon className='header-icon' onClick={handleUserOpen} />
   const favoritesSign = isAuthenticated ?
     <NavLink to="/Favorites"><FavoriteBorderIcon className='header-icon' /></NavLink> :
@@ -89,6 +102,9 @@ export default function Header() {
   return (
     <>
       <header className='header' onClick={handleSearchClose}>
+        {isMobile && (
+          <MenuIcon className='header-menu-icon' onClick={handleMobileMenuToggle} />
+        )}
         <Icon onClick={handleHomeClick} />
         <div className='header-buttom-container'>
           <IconButton sx={{ fontSize: "1.5em" }}>
@@ -111,25 +127,23 @@ export default function Header() {
             {userSign}
           </IconButton>
 
-
           <IconButton onClick={() => setShowLangButtons(prev => !prev)}>
             <LanguageIcon className='header-icon' />
           </IconButton>
           {showLangButtons && (
             <ClickAwayListener onClickAway={() => setShowLangButtons(false)}>
               <div ref={langRef} className="language-menu">
-                <Button
-                  onClick={() => { changeLanguage('en'); setShowLangButtons(false); }}
-                  disabled={language === 'en'}
-                >
-                  EN
-                </Button>
-                <Button
-                  onClick={() => { changeLanguage('uk'); setShowLangButtons(false); }}
-                  disabled={language === 'uk'}
-                >
-                  UK
-                </Button>
+                {Object.keys(languages).map((key) => (
+                  <Button
+                    style={{
+                      border: '1px solid #fff',
+                    }}
+                    onClick={() => { changeLanguage(key); setShowLangButtons(false); }}
+                    disabled={language === key}
+                  >
+                    {languages[key]}
+                  </Button>
+                ))}
               </div>
             </ClickAwayListener>
           )}
@@ -139,16 +153,29 @@ export default function Header() {
             </a>
           </IconButton>
 
-          <Modal open={isModal} onClose={handleClose}>
+          <Modal open={isModal} onClose={handleClose} isLogin={isModalContent === 'User'}>
             {modalContext}
           </Modal>
         </div>
       </header >
-      <div onClick={handleSearchClose}>
+      {isMobile ? <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
         <TabsSection
           active={tab}
-          onChange={(current) => setTab(current)} />
-      </div>
+          onChange={(tab) => {
+            setTab(tab);
+            setIsMobileMenuOpen(false);
+          }}
+          space="Main"
+          direction="vertical"
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      </div> :
+        <div onClick={handleSearchClose}>
+          <TabsSection
+            active={tab}
+            space="Main"
+            onChange={(current) => setTab(current)} />
+        </div>}
       <SearchInput isOpen={isModalSearch} onClose={handleSearchClose} />
       <Outlet context={{ tab, setTab }} />
     </>

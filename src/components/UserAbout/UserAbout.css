@@ -1,7 +1,7 @@
 .form-userabout-form {
   overflow: scroll;
-  max-height: 75vh;
-  width: 80%;
+  max-height: calc(101dvh - 4.5rem);
+  width: 97%;
   margin: 0 auto;
   padding: 2%;
   display: flex;
@@ -26,4 +26,9 @@
 .div-userabout-button {
   width: 50%;
   margin-left: 25%;
+}
+@media (max-width: 768px) {
+  .form-userabout-form {
+    max-height: calc(107dvh - 4.5rem);
+  }
 }

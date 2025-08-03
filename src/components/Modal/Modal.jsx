@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 import classes from './Modal.module.css'
 
-export default function Modal({ children, open, onClose, isItemImg }) {
+export default function Modal({ children, open, onClose, isItemImg, isLogin }) {
 
   const dialog = useRef()
 
@@ -22,9 +22,10 @@ export default function Modal({ children, open, onClose, isItemImg }) {
 
   return createPortal(
     <dialog
-      className={isItemImg && open ? `${classes.dialog} ${classes.itemimg}` : classes.dialog}
+      className={isItemImg && open ? `${classes.dialog} ${classes.itemimg}` : isLogin&&open?`${classes.dialog} ${classes.modal_content_login}`:classes.dialog}
       ref={dialog} onClick={handleClick}>
-      <div className={isItemImg && open ? `${classes.modalcontent} ${classes.modalcontentitemimg}` : classes.modalcontent}>{children}</div>
+      <div className={isItemImg && open ? `${classes.modal_content} ${classes.modal_content_itemimg}` :
+       classes.modal_content}>{children}</div>
     </dialog>,
     document.getElementById('modal')
   )

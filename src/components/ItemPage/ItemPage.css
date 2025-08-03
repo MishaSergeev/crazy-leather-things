@@ -1,6 +1,7 @@
 .div-item-page {
     overflow: scroll;
     max-height: 90vh;
+    overflow-x: hidden;
 }
 
 .div-item-page::-webkit-scrollbar {

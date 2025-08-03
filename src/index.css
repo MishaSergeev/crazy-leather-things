@@ -31,3 +31,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media (max-width: 768px) {
+  main {
+    max-height: calc(107dvh - 4.5rem);
+  }
+}

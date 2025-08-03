@@ -14,6 +14,7 @@ export default function SwiperItemImg({ data, id, style }) {
   const paginationRef = useRef(null);
   const swiperRef = useRef(null);
   const [isLoop, setIsLoop] = useState(false)
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     if (data?.length > 1) {
@@ -42,8 +43,8 @@ export default function SwiperItemImg({ data, id, style }) {
 
   return (
     <div className="swiper-wrapper">
-      <div ref={prevRef} className="custom-swiper-button-prev">‹</div>
-      <div ref={nextRef} className="custom-swiper-button-next">›</div>
+      {!isMobile&&<div ref={prevRef} className="custom-swiper-button-prev">‹</div>}
+      {!isMobile&&<div ref={nextRef} className="custom-swiper-button-next">›</div>}
       <div ref={paginationRef} className="custom-swiper-pagination">›</div>
       <Swiper
         loop={isLoop}
@@ -51,7 +52,7 @@ export default function SwiperItemImg({ data, id, style }) {
         slidesPerGroup={1}
         pagination={{ el: paginationRef.current, type: 'fraction', clickable: true }}
         spaceBetween={10}
-        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+        navigation={!isMobile?{ prevEl: prevRef.current, nextEl: nextRef.current }:true}
         speed={2000}
         modules={[Pagination, Navigation]}
       >
