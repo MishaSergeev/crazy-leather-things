@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { NavLink } from "react-router-dom";
 import { useUserData } from '@nhost/react';
 import { useAuthenticationStatus } from '@nhost/react'
 import EditIcon from '@mui/icons-material/Edit';
 
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useLanguage } from '../../context/LanguageContext';
 import globalDefaults from "../../context/InitialGlobalData";
 import Comments from "../Comments/Comments";
@@ -17,52 +17,55 @@ import Modal from '../Modal/Modal';
 
 import "./ItemPage.css"
 
-export default function ItemPage({ ...props }) {
+export default function ItemPage({ id, data }) {
   const t = useTranslation();
   const { language } = useLanguage();
-  const user = useUserData()
   const { isAuthenticated } = useAuthenticationStatus();
   const [isModal, setIsModal] = useState(false)
+  const user = useUserData()
+  const isAdmin = user?.defaultRole === 'admin';
+
   const handleClose = () => setIsModal(false);
   const handleCartOpen = () => setIsModal(true);
 
   const modalContext = isAuthenticated && user ?
-    <AddComment Item={props.id} onClose={handleClose} /> :
+    <AddComment Item={id} onClose={handleClose} /> :
     <User onClose={handleClose} />
-  const ItemFileds = [
-    { name: t('price'), value: props.data.price + ' ' + globalDefaults.currency[language] },
-    { name: t('color'), value: props.data.color },
-    { name: t('inventory'), value: props.data.inventory },
-  ]
+
+  const itemFields = useMemo(() => [
+    { name: t('price'), value: `${data.price} ${globalDefaults.currency[language]}` },
+    { name: t('color'), value: data.color },
+    { name: t('inventory'), value: data.inventory },
+  ], [t, data, language]);
 
   return (
     <div className='div-item-page'>
-      <h2 className='h2-item-page'>{props.data.description}</h2>
-      <div className="div-item-parent-page" key={props.id + '-info'}>
+      <h2 className='h2-item-page'>{data.description}</h2>
+      <div className="div-item-parent-page">
         <div className="div-item-page-img">
-          <ItemImg data={props.data} />
+          <ItemImg data={data} />
         </div>
         <div className="div-item-page-info">
-          <div className="div-itempage-description">{props.data.description_full}</div>
+          <div className="div-itempage-description">{data.description_full}</div>
           <div className="div-item-page-container">
             <div>
-              {ItemFileds.map((el) => (
-                <div className="div-itempage-attrs-row">
+              {itemFields.map((el) => (
+                <div className="div-itempage-attrs-row" key={id + '-info-' + el.name}>
                   <span className="span-itempage-label">{el.name}</span>
                   <span className="span-itempage-value">{el.value}</span>
                 </div>
               ))}
             </div>
             <div>
-              <NavLink to={props.data.link + '/Upsert'}
+              <NavLink to={data.link + '/Upsert'}
                 style={{
                   color: '#000000',
                   textDecoration: 'none',
                   padding: '6%',
                 }}>
-                {user?.defaultRole === 'admin' && (<EditIcon />)}
+                {isAdmin && (<EditIcon />)}
               </NavLink>
-              <ItemCartButton data={props.data} />
+              <ItemCartButton data={data} />
             </div>
           </div>
         </div>
@@ -73,7 +76,7 @@ export default function ItemPage({ ...props }) {
           <Button onClick={handleCartOpen}>{t('new_review')}</Button>
         </div>
       </div>
-      <Comments Item={props.id} />
+      <Comments Item={id} />
       <Modal open={isModal} onClose={handleClose}>
         {modalContext}
       </Modal>

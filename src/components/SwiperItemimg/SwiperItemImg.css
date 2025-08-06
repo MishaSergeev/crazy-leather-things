@@ -48,7 +48,14 @@
     position: fixed;
     display: flex;
     justify-content: center;
+    font-size: calc(0.3em + 1vw);
     z-index: 1050;
     bottom: -30%;
     color: #fff;
+}
+
+@media (max-width: 768px) {
+  .custom-swiper-pagination {
+    font-size: calc(0.8em + 1vw);
+  }
 }

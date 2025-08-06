@@ -4,7 +4,7 @@
 
 .input-calendarinput-field {
   padding: 0.6rem 1rem;
-  font-size: 0.95rem;
+  font-size: calc(0.3em + 1vw);
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
@@ -33,4 +33,9 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+@media (max-width: 768px) {
+  .input-calendarinput-field {
+    font-size: calc(0.8em + 1vw);
+  }
 }

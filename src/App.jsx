@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -8,19 +9,19 @@ import { NhostProvider } from '@nhost/react';
 import { nhost } from './nhost';
 import { GlobalDataProvider, useGlobalData } from './context/GlobalDataContext';
 import { LanguageProvider } from './context/LanguageContext';
-import { FilterProvider } from "./components/hooks/FilterContext";
-import { QtyProvider } from "./components/hooks/QtyContext";
+import { FilterProvider } from "./hooks/FilterContext";
+import { QtyProvider } from "./hooks/QtyContext";
 import Loader from './components/Loader/Loader';
 import Header from './components/Header/Header';
-import ItemPage from "./components/ItemPage/ItemPage";
-import UpsertItem from "./components/UpsertItem/UpsertItem";
 import HomePage from "./components/HomePage";
-import Cart from "./components/Cart/Cart";
-import Submit from "./components/Submit/Submit";
-import Favorites from './components/Favorites/Favorites';
-import UserPage from "./components/UserPage/UserPage";
-import Orders from "./components/Orders/Orders";
-import OrderDetails from './components/OrderDetails/OrderDetails';
+const Cart = lazy(() => import('./components/Cart/Cart'));
+const Submit = lazy(() => import('./components/Submit/Submit'));
+const Favorites = lazy(() => import('./components/Favorites/Favorites'));
+const UserPage = lazy(() => import('./components/UserPage/UserPage'));
+const Orders = lazy(() => import('./components/Orders/Orders'));
+const OrderDetails = lazy(() => import('./components/OrderDetails/OrderDetails'));
+const UpsertItem = lazy(() => import('./components/UpsertItem/UpsertItem'));
+const ItemPage = lazy(() => import("./components/ItemPage/ItemPage"));
 
 function InnerRoutes() {
   const { globalData, loading } = useGlobalData();
@@ -45,19 +46,21 @@ function InnerRoutes() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route path="/" element={<HomePage />} />
-          {ItemsRoutes}
-          {ItemsUpsertRoutes}
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/Favorites" element={<Favorites />} />
-          <Route path="/UserPage" element={<UserPage />} />
-          <Route path="/Submit" element={<Submit />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/orders/:orderId" element={<OrderDetails />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route path="/" element={<HomePage />} />
+            {ItemsRoutes}
+            {ItemsUpsertRoutes}
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/Favorites" element={<Favorites />} />
+            <Route path="/UserPage" element={<UserPage />} />
+            <Route path="/Submit" element={<Submit />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:orderId" element={<OrderDetails />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

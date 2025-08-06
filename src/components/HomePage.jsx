@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 
 import { useGlobalData } from '../context/GlobalDataContext'
-import { useTranslation } from './hooks/useTranslation';
+import { useTranslation } from '../hooks/useTranslation';
 import Swiper from './Swiper/Swiper';
 import About from './About/About';
 import Comments from './Comments/Comments';

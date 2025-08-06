@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
-import { FilterContext } from '../hooks/FilterContext';
+import { FilterContext } from '../../hooks/FilterContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import { useGlobalData } from '../../context/GlobalDataContext';
 import Button from '../Button/Button';
 
@@ -11,8 +12,7 @@ export default function ItemsFilter({ active, onChange }) {
   const { setFilter } = useContext(FilterContext);
 
   const handleChange = () => setFilter('');
-
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
 
   const handleSelectChange = (e) => {
     const selectedCategory = e.target.value;

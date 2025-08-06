@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { gql } from 'graphql-request';
 import { useUserData, useAuthenticationStatus } from '@nhost/react';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -9,43 +8,16 @@ import { roundToTwo } from '../../utils/round';
 import globalDefaults from "../../context/InitialGlobalData";
 import { useGlobalData } from '../../context/GlobalDataContext';
 import { useLanguage } from '../../context/LanguageContext';
-import { useTranslation } from '../hooks/useTranslation';
-import { useQty } from '../hooks/QtyContext';
+import { useTranslation } from '../../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
+import { DELETE_CART_ITEM, UPSERT_CART } from '../../graphql/queries';
 import Button from "../Button/Button";
 import ItemImg from "../ItemImg/ItemImg";
 import InputField from '../InputField/InputField';
 
 import './Cart.css';
 
-const DELETE_CART_ITEM = gql`
-mutation DeleteCartItem($user_id: uuid!, $item_id: String!) {
-  delete_cart(
-    where: {
-      user_id: { _eq: $user_id }
-      item_id: { _eq: $item_id }
-    }
-  ) {
-    affected_rows
-  }
-}
-`
-const UPSERT_CART = gql`
-  mutation UpsertCart($item_id: String!, $user_id: uuid!, $qty: numeric!) {
-    insert_cart(
-      objects: {
-        item_id: $item_id
-        user_id: $user_id
-        qty: $qty
-      }
-      on_conflict: {
-        constraint: cart_pkey
-        update_columns: [qty]
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
 export default function Cart({ onClose }) {
     const t = useTranslation();
     const user = useUserData()
@@ -54,8 +26,9 @@ export default function Cart({ onClose }) {
     const { globalData } = useGlobalData()
     const [cartData, setCartData] = useState({ ...globalDefaults.cart });
     const { addItemToCart } = useQty()
+    const Currency = globalDefaults.currency[language];
     const inputRefs = useRef({});
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = useIsMobile();
 
     const handleFocus = (key) => {
         inputRefs.current[key]?.select();
@@ -144,19 +117,23 @@ export default function Cart({ onClose }) {
                             handleQtyChange(key, globalDefaults.cart[key].qty, globalDefaults.cart[key].qty - 1)
                         }
                     />
-                    <div>{globalData.Items[key].price} {globalDefaults.currency[language]}</div>
+                    <div>{globalData.Items[key].price} {Currency}</div>
                     <CloseIcon onClick={() => removeItemFromCart(key)} />
                 </div>
             </div>
         )) :
         <div className='div-empty-cart'>{t('cart_empty')}</div>
 
-    let TotalSum = 0
-    const Currency = globalDefaults.currency[language]
-    for (let key in globalDefaults.cart) {
-        TotalSum += globalDefaults.cart[key].qty * globalData.Items[key].price
-    }
-    TotalSum = roundToTwo(TotalSum)
+
+
+    const TotalSum = roundToTwo(
+        Object.entries(globalDefaults.cart).reduce((sum, [key, item]) => {
+            const qty = item?.qty || 0;
+            const price = globalData.Items[key]?.price || 0;
+            return sum + qty * price;
+        }, 0)
+    );
+
     const SubmitOrder = Object.keys(globalDefaults.cart).length > 0 ?
         <div className='div-submit-cart-container'>
             <div className='div-cart-total'>{t('sum')} {TotalSum} {Currency}</div>

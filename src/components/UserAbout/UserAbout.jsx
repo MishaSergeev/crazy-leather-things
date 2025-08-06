@@ -3,7 +3,7 @@ import { useUserData } from '@nhost/react';
 import { gql } from "graphql-request";
 
 import { nhost } from "../../nhost";
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import FormField from "../FormField/FormField";
 import Button from "../Button/Button";
 import Alert from '../Alert/Alert';

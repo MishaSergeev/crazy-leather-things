@@ -1,34 +1,17 @@
 import { useState } from 'react'
-import { gql } from "graphql-request";
 import { useUserData } from '@nhost/react';
 import { useAuthenticationStatus } from '@nhost/react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { nhost } from "../../nhost";
-import { useQty } from '../hooks/QtyContext';
+import { useQty } from '../../hooks/QtyContext';
+import { UPSERT_CART } from '../../graphql/queries';
 import GlobalData from '../../context/InitialGlobalData';
 import Cart from '../Cart/Cart';
 import Modal from '../Modal/Modal';
 
 import classes from './ItemCartButton.module.css'
 
-const UPSERT_CART = gql`
-  mutation UpsertCart($item_id: String!, $user_id: uuid!, $qty: numeric!) {
-    insert_cart(
-      objects: {
-        item_id: $item_id
-        user_id: $user_id
-        qty: $qty
-      }
-      on_conflict: {
-        constraint: cart_pkey
-        update_columns: [qty]
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
 export default function ItemCartButton(...props) {
   const [isMouseOver, setMouseOver] = useState(false)
   const [isModal, setIsModal] = useState(false)

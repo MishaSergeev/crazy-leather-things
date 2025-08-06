@@ -1,27 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { gql } from 'graphql-request';
 import { NavLink } from 'react-router-dom';
 
 import { nhost } from '../../nhost';
-import { useTranslation } from '../hooks/useTranslation';
-import { useGlobalData } from '../../context/GlobalDataContext'
+import { useTranslation } from '../../hooks/useTranslation';
+import { useGlobalData } from '../../context/GlobalDataContext';
+import { GET_ORDER_BY_ID } from '../../graphql/queries';
 import ItemImg from '../ItemImg/ItemImg';
 
 import './OrderDetails.css'
-
-const GET_ORDER_BY_ID = gql`
-  query GetOrder($order_number: Int!) {
-  orders(where: { order_number: { _eq: $order_number } }){
-      order_number
-      status
-      items
-      date
-      description
-      sum
-    }
-  }
-`;
 
 export default function OrderDetails() {
     const t = useTranslation();

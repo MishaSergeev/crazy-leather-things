@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-import GlobalData from '../../context/InitialGlobalData';
+import GlobalData from '../context/InitialGlobalData';
 
 const QtyContext = createContext();
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useUserData, useAuthenticationStatus } from '@nhost/react';
 import { useNavigate } from 'react-router-dom';
-import { gql } from 'graphql-request';
 
 import { nhost } from '../../nhost';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useGlobalData } from '../../context/GlobalDataContext'
+import { UPSERT_ITEMS} from '../../graphql/queries';
 import FormField from "../FormField/FormField";
 import Alert from '../Alert/Alert'
 import UploadImage from '../UploadImage/UploadImage';
@@ -13,68 +13,7 @@ import Button from "../Button/Button";
 
 import './AddItem.css';
 
-const UPSERT_ITEMS = gql`
-  mutation UpsertItems(
-    $id: String!,
-    $link: String!,
-    $description: String!,
-    $description_en: String!,
-    $description_full: String!,
-    $description_full_en: String!,
-    $price: numeric!,
-    $price_usd: numeric!,
-    $inventory: numeric!,
-    $category: String!,
-    $category_en: String!,
-    $subcategory: String!,
-    $subcategory_en: String!,
-    $color: String!,
-    $color_en: String!,
-    $src: String!
-  ) {
-    insert_items(
-      objects: {
-        id: $id,
-        link: $link,
-        description: $description,
-        description_en: $description_en,
-        description_full: $description_full,
-        description_full_en: $description_full_en,
-        price: $price,
-        price_usd: $price_usd,
-        inventory: $inventory,
-        category: $category,
-        category_en: $category_en,
-        subcategory: $subcategory,
-        subcategory_en: $subcategory_en,
-        color: $color,
-        color_en: $color_en,
-        src: $src
-      },
-      on_conflict: {
-        constraint: items_pkey,
-        update_columns: [
-          link,
-          description,
-          description_en,
-          description_full,
-          description_full_en,
-          price,
-          inventory,
-          category,
-          category_en,
-          subcategory,
-          subcategory_en,
-          color,
-          color_en,
-          src
-        ]
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
+
 
 export default function AddItem() {
     const { globalData } = useGlobalData()

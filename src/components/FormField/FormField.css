@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  font-size: 0.95rem;
+  font-size: calc(0.3em + 0.8vw);
   gap: 0.3rem;
 }
 
 .input-form-field {
   padding: 0.6rem 1rem;
-  font-size: 0.95rem;
+  font-size: calc(0.3em + 0.8vw);
   border: 1px solid #000000;
   border-radius: 0.5rem;
   outline: none;
@@ -23,4 +23,14 @@
 
 .field-error {
   border: 1px solid red !important;
+}
+
+@media (max-width: 768px) {
+  .label-form-text {
+    font-size: calc(0.6em + 1vw);
+  }
+
+  .input-form-field {
+    font-size: calc(0.8em + 1vw);
+  }
 }

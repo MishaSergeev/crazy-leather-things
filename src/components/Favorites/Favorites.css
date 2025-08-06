@@ -28,6 +28,7 @@
 }
 
 .div-items-favorite {
+    font-size: calc(0.3em + 1vw);
     margin: 0.5%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20%, 1fr)) 2em;
@@ -42,6 +43,7 @@
 }
 
 .div-title-favorite {
+    font-size: calc(0.3em + 1vw);
     margin: 0.5%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20%, 1fr)) 2em;

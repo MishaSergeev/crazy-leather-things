@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSignUpEmailPassword } from '@nhost/react'
 
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import Button from '../Button/Button';
 import FormField from "../FormField/FormField";
 

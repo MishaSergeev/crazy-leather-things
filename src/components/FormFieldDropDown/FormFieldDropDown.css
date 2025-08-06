@@ -1,14 +1,15 @@
 .label-form-dropdown-text {
   display: flex;
   flex-direction: column;
+  width: 100%;
   font-weight: bold;
-  font-size: 0.95rem;
+  font-size: calc(0.6em + 1vw);
   gap: 0.3rem;
 }
 
 .select-form-dropdown-field {
   padding: 0.6rem 1rem;
-  font-size: 0.95rem;
+  font-size: calc(0.3em + 0.8vw);
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
@@ -23,4 +24,17 @@
 
 .field-error {
   border: 1px solid red !important;
+}
+
+@media (max-width: 768px) {
+
+  .select-form-dropdown-field {
+    font-size: calc(0.7em + 1vw);
+    border: 1px solid black;
+    border-radius: 6px;
+  }
+
+  .label-form-dropdown-text {
+    font-size: calc(0.7em + 1vw);
+  }
 }

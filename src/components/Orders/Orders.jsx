@@ -1,36 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useUserData } from '@nhost/react';
-import { gql } from 'graphql-request'
-
 
 import { nhost } from '../../nhost'
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
+import { GET_ORDERS } from '../../graphql/queries';
 
 import './Orders.css'
 
-const GET_ORDERS = gql`
-  query GetOrders($user_id: uuid!) {
-    orders(where: { user_id: { _eq: $user_id } }) {
-      order_number
-      status
-      items
-      date
-      description
-      payment_method
-      delivery_method
-      delivery_email
-      delivery_phone
-      delivery_country
-      delivery_city
-      delivery_street
-      delivery_building
-      delivery_apartment
-      delivery_zip
-      sum
-    }
-  }
-`;
 export default function Orders() {
     const t = useTranslation();
     const user = useUserData()
@@ -41,7 +18,6 @@ export default function Orders() {
             .request(GET_ORDERS, { user_id: user.id })
             .then((res) => {
                 const data = res.data?.orders;
-                console.log('res', res)
                 if (data) setOrdersData(data);
             })
             .catch(console.error);
@@ -50,7 +26,7 @@ export default function Orders() {
     const OrdersTitle = ordersData.length > 0 ?
         <div className='div-title-orders'>
             {OrdersTitleFileds.map((el) => (
-                <div>{el}</div>
+                <div key={el}>{el}</div>
             ))}
         </div> :
         <></>

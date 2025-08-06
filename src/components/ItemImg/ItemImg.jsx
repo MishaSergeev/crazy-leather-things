@@ -20,7 +20,7 @@ export default function ItemImg({ ...props }) {
         }
     }
     const handleClose = () => setIsModal(false);
-    const src = props.data.src.split(",")
+    const src = props.data?.src?.split(",")
     return (
         <>
             <ItemFavoriteButton data={props.data} />

@@ -5,23 +5,14 @@
     gap: 1rem;
 }
 
-.div-login-input input {
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    border: 1px solid black;
-    background-color: #f1f5ff;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
 .p-login-error {
     color: red;
-    font-size: 0.9rem;
+    font-size: calc(0.3em + 1vw);
 }
 
 .p-login-success {
     color: green;
-    font-size: 0.9rem;
+    font-size: calc(0.3em + 1vw);
 }
 
 .div-login-button-wrapper {

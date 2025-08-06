@@ -1,6 +1,6 @@
 .form-userabout-form {
   overflow: scroll;
-  max-height: calc(101dvh - 4.5rem);
+  max-height: calc(100dvh - 6rem);
   width: 97%;
   margin: 0 auto;
   padding: 2%;

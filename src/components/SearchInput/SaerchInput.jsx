@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 
-import { FilterContext } from '../hooks/FilterContext';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useGlobalData } from '../../context/GlobalDataContext'
+import { searchItem } from '../../utils/filter';
 import ItemsGrid from '../Items/Items';
 
 import classes from './SearchInput.module.css'
@@ -11,21 +11,34 @@ import classes from './SearchInput.module.css'
 export default function SearchInput({ isOpen, onClose }) {
     const t = useTranslation();
     const [isFocus, setIsFocus] = useState(false)
-    const { filter, setFilter } = useContext(FilterContext);
     const { globalData } = useGlobalData()
+    const [inputText, setInputText] = useState('')
+    const [filteredItems, setFilteredItems] = useState([])
+
     const handleChange = (event) => {
-        setFilter(event.target.value);
+        const value = event.target.value;
+        setInputText(value);
+
+        if (!value.trim()) {
+            setFilteredItems([]);
+            return;
+        }
+
+        const items = Object.values(globalData.Items).filter(item => searchItem(item, value));
+        setFilteredItems(items);
     };
     const handleClick = (event) => {
         if (event.target.id === 'search-container' || event.target.id === '') {
             onClose();
-            console.log('event.target.value', event.target.value)
-            setFilter('')
+            setInputText('')
+            setFilteredItems([])
         }
     };
-    const ItemsContainer = Object.keys(globalData.Items).map((key) =>
-        <ItemsGrid filter={filter} search={true} category='null' data={globalData.Items[key]} key={key + '-cont-seach'} />
+    const ItemsContainer = filteredItems.map((el) =>
+        <ItemsGrid data={el} key={el.id + '-cont-search'} />
     )
+    
+
     return (
         <>
             <div
@@ -38,12 +51,13 @@ export default function SearchInput({ isOpen, onClose }) {
                     className={
                         isFocus ? `${classes["search"]} ${classes.focus}` : classes["search"]
                     }>
-                    <button className={classes["search-button"]}><SearchIcon sx={{ fontSize: "200%" }} /></button>
+                    <button aria-label={t('search')} className={classes["search-button"]}><SearchIcon sx={{ fontSize: "calc(0.8em + 1vw)" }} /></button>
                     <input
                         id='inputSearch'
+                        aria-label={t('search')}
                         onFocus={() => setIsFocus(true)}
                         onBlur={() => setIsFocus(false)}
-                        value={filter}
+                        value={inputText}
                         onChange={handleChange}
                         className={
                             isFocus ? `${classes["search-input"]} ${classes.focus}` : classes["search-input"]

@@ -6,8 +6,8 @@ import { gql } from 'graphql-request'
 import { nhost } from '../../nhost'
 import { useGlobalData } from '../../context/GlobalDataContext'
 import globalDefaults from "../../context/InitialGlobalData";
-import { useQty } from '../hooks/QtyContext';
-import { useTranslation } from '../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext';
+import { useTranslation } from '../../hooks/useTranslation';
 import { DELIVERY_PROVIDERS } from '../../utils/deliveryProviders'
 import FormFieldDropDown from '../FormFieldDropDown/FormFieldDropDown';
 import FormField from "../FormField/FormField";

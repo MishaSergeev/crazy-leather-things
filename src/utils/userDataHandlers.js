@@ -1,60 +1,6 @@
-import { gql } from 'graphql-request';
-
 import { nhost } from '../nhost';
 import globalDefaults from '../context/InitialGlobalData';
-
-
-export const GET_PROFILE = gql`
-  query GetProfile($id: uuid!) {
-    profiles(where: { id: { _eq: $id } }) {
-      id
-      first_name
-      last_name
-      birthday
-      email
-      phone
-      about
-      country
-      city
-      street
-      building
-      apartment
-      zip_code
-    }
-  }
-`;
-export const GET_CART = gql`
-  query GetCart($user_id: uuid!) {
-    cart(where: { user_id: { _eq: $user_id } }) {
-      item_id
-      qty
-    }
-  }
-`;
-export const GET_FAVORITES = gql`
-  query GetFavorites($user_id: uuid!) {
-    favorites(where: { user_id: { _eq: $user_id } }) {
-      item_id
-    }
-  }
-`;
-export const UPSERT_CART = gql`
-  mutation UpsertCart($item_id: String!, $user_id: uuid!, $qty: numeric!) {
-    insert_cart(
-      objects: {
-        item_id: $item_id
-        user_id: $user_id
-        qty: $qty
-      }
-      on_conflict: {
-        constraint: cart_pkey
-        update_columns: [qty]
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
+import { GET_PROFILE, GET_CART, GET_FAVORITES, UPSERT_CART } from '../graphql/queries';
 
 export async function fetchUserProfile(userId) {
   const { data, error } = await nhost.graphql.request(GET_PROFILE, { id: userId });

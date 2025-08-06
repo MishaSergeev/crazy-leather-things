@@ -1,3 +1,12 @@
+.item-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.item-link:hover {
+  text-decoration: underline;
+}
+
 .div-items-child {
   padding: 9px;
   border: 1px solid #fff;
@@ -10,16 +19,18 @@
 }
 
 .div-items-description {
+  font-size: calc(0.1em + 1.2vw);
   text-align: center;
 }
 
 .div-items-price {
+  font-size: calc(0.1em + 1.2vw);
   text-align: center;
 }
 
 .div-item-container {
   display: grid;
-  grid-template-rows: 0 1fr 0.5fr 0.1fr;
+  grid-template-rows: 0 1fr 0.3fr 0.1fr;
 }
 
 .div-item-price-container {
@@ -30,10 +41,10 @@
 
 @media (max-width: 768px) {
   .div-items-description {
-    font-size: 80%;
+    font-size: calc(0.6em + 0.6vw);
   }
 
   .div-items-price {
-    font-size: 80%;
+    font-size: calc(0.6em + 0.6vw);
   }
 }

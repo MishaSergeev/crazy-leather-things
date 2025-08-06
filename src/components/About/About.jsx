@@ -1,4 +1,4 @@
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useGlobalData } from '../../context/GlobalDataContext'
 import Swiper from "../Swiper/Swiper";
 

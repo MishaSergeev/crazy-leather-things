@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useChangePassword } from '@nhost/react'
 
-import { useTranslation } from '../hooks/useTranslation'
+import { useTranslation } from '../../hooks/useTranslation'
 import Button from '../Button/Button'
-
+import FormField from '../FormField/FormField'
 import './ChangePassword.css'
 
 export default function ChangePassword() {
@@ -31,16 +31,15 @@ export default function ChangePassword() {
 
   return (
     <form className="form-changepassword-container" onSubmit={handleSubmit}>
-      <label className="label-changepassword-text">
-        {t('new_password')}
-        <input
-          className="input-changepassword-field"
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-      </label>
+      <FormField
+        key={'new_password'}
+        label={'new_password'}
+        name={'new_password'}
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        type="password"
+        t={t}
+      />
       <div className="div-changepassword-button">
         <Button type="submit" disabled={isLoading}>
           {t('new_password_submit')}

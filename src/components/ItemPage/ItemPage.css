@@ -72,6 +72,7 @@
 .h3-item-page {
     display: flex;
     align-items: center;
+    font-size: calc(0.3em + 1vw);
     margin-left: 1%;
 }
 
@@ -86,7 +87,7 @@
     padding: 1%;
     text-align: justify;
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: calc(0.3em + 1vw);
     line-height: 1.4;
 }
 
@@ -96,7 +97,7 @@
     align-items: center;
     padding: 0.5rem 0;
     border-bottom: 1px solid #ddd;
-    font-size: 0.95rem;
+    font-size: calc(0.3em + 1vw);
 }
 
 .span-itempage-label {
@@ -111,6 +112,13 @@
 }
 
 @media (max-width: 768px) {
+
+    .div-itempage-description,
+    .div-itempage-attrs-row,
+    .h3-item-page {
+        font-size: calc(0.6em + 1vw);
+    }
+
     .div-item-parent-page {
         width: 98%;
         display: block;

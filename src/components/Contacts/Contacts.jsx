@@ -1,7 +1,8 @@
 import { SiInstagram } from 'react-icons/si'
 import { Facebook } from '@mui/icons-material'
+import { SiEtsy } from 'react-icons/si';
 
-import { useTranslation } from '../hooks/useTranslation'
+import { useTranslation } from '../../hooks/useTranslation'
 
 import './Contacts.css'
 
@@ -45,6 +46,15 @@ export default function Contacts() {
         >
           <Facebook className="icon-contacts-social" />
           Photo Album
+        </a>
+        <a
+          href="https://www.etsy.com/shop/CrazyLeatherThings"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="a-contacts-link"
+        >
+          <SiEtsy className="icon-contacts-social" />
+          Etsy Store
         </a>
       </div>
     </div>

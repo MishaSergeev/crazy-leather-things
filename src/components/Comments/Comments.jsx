@@ -1,45 +1,13 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from "react-router-dom";
-import { gql } from '@apollo/client'
 
 import { nhost } from '../../nhost'
 import { useGlobalData } from '../../context/GlobalDataContext'
+import { GET_COMMENTS_DATA, GET_COMMENTS_DATA_BY_ID} from '../../graphql/queries';
 import SwiperItemImg from '../SwiperItemimg/SwiperItemImg';
 import Modal from "../Modal/Modal";
 
 import './Comments.css'
-
-const GET_DATA = gql`
-  query{
-    comments(
-    limit: 10
-    order_by: { date: desc }
-    ) {
-      id
-      item_id
-      user_name
-      date
-      comment
-      src
-    }
-  }
-`;
-const GET_DATA_BY_ID = gql`
-  query ($item_id: String) {
-    comments(
-    where: { item_id: { _eq: $item_id } }
-    limit: 10
-    order_by: { date: desc }
-    ) {
-      id
-      item_id
-      user_name
-      date
-      comment
-      src
-    }
-  }
-`;
 
 export default function Comments(...props) {
     const defaulComments = []
@@ -49,12 +17,12 @@ export default function Comments(...props) {
         const fetchComments = async () => {
             try {
                 const item_id = props[0].Item
-                const query = item_id ? GET_DATA_BY_ID : GET_DATA;
+                const query = item_id ? GET_COMMENTS_DATA_BY_ID : GET_COMMENTS_DATA;
                 const variables = item_id ? { item_id } : {};
                 const result = await nhost.graphql.request(query, variables)
                 if (result.error) throw result.error
                 result.data.comments.forEach(el => {
-                    el.src_arr = el.src.split(",")
+                    el.src_arr = el.src!==''?el.src?.split(","):''
                 })
 
                 setComments(result.data.comments)
@@ -79,8 +47,8 @@ export default function Comments(...props) {
     const Comment = paginatedComments.map((el) => (
         <div className='div-items-comments-parent' key={`${el.user_name}-${el.item_id}-${el.id}`}>
             <div className='div-items-comments-user'>{el.user_name} - {el.date}</div>
-            <div><p>{el.comment}</p></div>
-            {el.src_arr?.map((img, index) =>
+            <div className='div-items-comments-context'><p>{el.comment}</p></div>
+            {el.src_arr!==''&&el.src_arr?.map((img, index) =>
                 <img
                     key={index + el.id}
                     className='img-comments'
@@ -88,7 +56,7 @@ export default function Comments(...props) {
                     alt=""
                     onClick={handleOpen}
                 />)}
-            {el.src_arr ? (<Modal open={isModal} onClose={handleClose} isItemImg={true}>
+            {el.src_arr&&el.src_arr!=='' ? (<Modal open={isModal} onClose={handleClose} isItemImg={true}>
                 <SwiperItemImg data={el.src_arr} />
             </Modal>) : (<></>)}
 

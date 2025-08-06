@@ -5,7 +5,7 @@ import { gql } from 'graphql-request';
 
 import { nhost } from '../../nhost';
 import { useGlobalData } from '../../context/GlobalDataContext'
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import FormField from "../FormField/FormField";
 import UploadImage from '../UploadImage/UploadImage';
 import Button from "../Button/Button";

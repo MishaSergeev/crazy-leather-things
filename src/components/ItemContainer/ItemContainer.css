@@ -28,15 +28,19 @@
 
 .category-label {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: calc(0.3em + 0.6vw);
     cursor: pointer;
 }
 
 .sort-select {
-    padding: 0.4em;
-    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    font-size: calc(0.7em + 0.8vw);
     border: 1px solid black;
-    font-weight: bold;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 0.2s ease;
 }
 
 .pagination {

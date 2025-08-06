@@ -1,44 +1,15 @@
 import { useState } from "react";
-import { gql } from 'graphql-request'
 
 import { nhost } from '../../nhost'
 import { useUserData } from '@nhost/react';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
+import { GET_LAST_COMMENT_NUMBER, UPSERT_COMMENTS } from '../../graphql/queries';
 import globalDefaults from "../../context/InitialGlobalData";
 import Alert from '../Alert/Alert'
 import Button from '../Button/Button';
 import UploadImage from '../UploadImage/UploadImage';
 import FormField from "../FormField/FormField";
-const GET_LAST_COMMENT_NUMBER = gql`
-  query GetLastOrderNumber {
-    comments(order_by: { id: desc }, limit: 1) {
-      id
-    }
-  }
-`;
-const UPSERT_COMMENTS = gql`
-  mutation UpsertComment(
-    $id: Int!,
-    $user_id: uuid!,
-    $item_id: String!,
-    $user_name: String!,
-    $comment: String!,
-    $src: String!
-) {
-    insert_comments(
-      objects: {
-        id: $id
-        user_id: $user_id
-        item_id: $item_id
-        user_name: $user_name
-        comment: $comment
-        src: $src
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
+
 export default function AddComment(...props) {
   const [alert, setAlert] = useState(null)
   const user = useUserData()
@@ -100,7 +71,7 @@ export default function AddComment(...props) {
         t={t}
       />
 
-      <UploadImage value={imageList} onChange={setImageList} label={t('reviewers_photo')}/>
+      <UploadImage value={imageList} onChange={setImageList} label={t('reviewers_photo')} />
 
       <Button onClick={handleSubmit}>{t('submit_comment')}</Button>
       {alert && (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUserData, useAuthenticationStatus } from '@nhost/react';
 
+import { useIsMobile } from '../../hooks/useIsMobile';
 import Favorites from '../Favorites/Favorites'
 import UserAbout from '../UserAbout/UserAbout'
 import Orders from "../Orders/Orders"
@@ -19,7 +20,7 @@ export default function UserPage() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [tab, setTab] = useState('Profile')
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (isMobile && location.state?.openMenu) {

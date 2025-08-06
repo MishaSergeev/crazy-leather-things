@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useSignInEmailPassword } from '@nhost/react'
 
-import { useQty } from '../hooks/QtyContext';
-import { useTranslation } from '../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useGlobalData } from '../../context/GlobalDataContext'
 import { fetchUserProfile, syncCart, syncFavorites } from '../../utils/userDataHandlers'
 import Button from '../Button/Button';

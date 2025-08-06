@@ -1,16 +1,21 @@
 import './FormFieldDropDown.css';
 
 export default function FormFieldDropDown({
-  label, value, onChange, t, firstOption, options, type, style, important
+  label, value, onChange, t, firstOption, options, type, style, important, width
 }) {
   const isError = important && !value;
 
   return (
-    <label className={style || "label-form-dropdown-text"}>
+    <label
+      className={style || "label-form-dropdown-text"}
+      style={{
+        width: width,
+      }}>
       {t(label)}
       <select
         value={value}
         onChange={onChange}
+
         className={`select-form-dropdown-field ${isError ? 'field-error' : ''}`}
       >
         {firstOption && <option value="">{t(firstOption)}</option>}

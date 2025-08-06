@@ -1,12 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 
-import { useTranslation } from '../hooks/useTranslation';
-import { FilterContext } from '../hooks/FilterContext';
+import { useTranslation } from '../../hooks/useTranslation';
+import { FilterContext } from '../../hooks/FilterContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import { useGlobalData } from '../../context/GlobalDataContext';
 import { useLanguage } from '../../context/LanguageContext';
-import globalDefaults from "../../context/InitialGlobalData";
-import ItemsGrid from "../Items/Items";
-import ItemsFilter from "../ItemsFilter/ItemsFilter";
+import globalDefaults from '../../context/InitialGlobalData';
+import { filterItem } from '../../utils/filter';
+import ItemsGrid from '../Items/Items';
+import ItemsFilter from '../ItemsFilter/ItemsFilter';
+import FormFieldDropDown from '../FormFieldDropDown/FormFieldDropDown';
 
 import './ItemContainer.css';
 
@@ -16,96 +19,98 @@ export default function ItemsContainer() {
   const { globalData } = useGlobalData();
   const { filter } = useContext(FilterContext);
 
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
 
-  const [category, setCategory] = useState(globalDefaults.Categories[language]);
+  const defaultCategory = useMemo(() => globalDefaults.Categories[language], [language]);
+
+  const [category, setCategory] = useState(defaultCategory);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('newest');
 
-  const items = Object.values(globalData.Items)
-    .filter(item => category === globalDefaults.Categories[language] || item.category === category)
-    .filter(item => item.description?.toLowerCase().includes(filter.toLowerCase()))
+  const branches = [
+    { Ref: 'newest', Description: t('sort_newest') },
+    { Ref: 'oldest', Description: t('sort_oldest') },
+    { Ref: 'price_asc', Description: t('sort_price_asc') },
+    { Ref: 'price_desc', Description: t('sort_price_desc') },
+  ];
 
-  const sortedItems = [...items].sort((a, b) => {
-    if (sortOrder === 'newest') return new Date(b.date).getTime() - new Date(a.date).getTime();
-    if (sortOrder === 'oldest') return new Date(a.date).getTime() - new Date(b.date).getTime();
-    if (sortOrder === 'price_asc') return a.price - b.price;
-    if (sortOrder === 'price_desc') return b.price - a.price;
-    return 0;
-  });
+  useEffect(() => {
+    setCategory(defaultCategory);
+  }, [defaultCategory]);
+
+  const filteredItems = useMemo(() => {
+    return Object.values(globalData.Items)
+      .filter(item => filterItem(item, category, defaultCategory, globalDefaults.Categories[language]))
+  }, [globalData.Items, category, language, defaultCategory]);
+
+  const sortedItems = useMemo(() => {
+    return [...filteredItems].sort((a, b) => {
+      if (sortOrder === 'newest') return new Date(b.date).getTime() - new Date(a.date).getTime();
+      if (sortOrder === 'oldest') return new Date(a.date).getTime() - new Date(b.date).getTime();
+      if (sortOrder === 'price_asc') return a.price - b.price;
+      if (sortOrder === 'price_desc') return b.price - a.price;
+      return 0;
+    });
+  }, [filteredItems, sortOrder]);
 
   const itemsPerPage = 16;
   const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
-  const paginatedItems = sortedItems.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   useEffect(() => {
-    setCategory(globalDefaults.Categories[language]);
-  }, [language]);
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages || 1);
+    }
+  }, [totalPages, currentPage]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [category, sortOrder]);
+  const paginatedItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return sortedItems.slice(startIndex, startIndex + itemsPerPage);
+  }, [sortedItems, currentPage]);
+
+  const pages = useMemo(() => Array.from({ length: totalPages }, (_, i) => i + 1), [totalPages]);
 
   return (
-      <div className="div-items-tab">
-        {!isMobile && (
-          <ItemsFilter
-            active={category}
-            inputSearch={filter}
-            onChange={(current) => setCategory(current)}
+    <div className="div-items-tab">
+      {!isMobile && (
+        <ItemsFilter active={category} inputSearch={filter} onChange={setCategory} />
+      )}
+      <div className="div-items-content">
+        <div className="items-header">
+          {!isMobile ? (
+            <span className="category-label">{category}</span>
+          ) : (
+            <ItemsFilter active={category} inputSearch={filter} onChange={setCategory} />
+          )}
+          <FormFieldDropDown
+            label=""
+            value={sortOrder}
+            onChange={e => setSortOrder(e.target.value)}
+            t={t}
+            firstOption=""
+            options={branches}
+            type="object"
+            width={!isMobile ? '30%' : '100%'}
           />
-        )}
-        <div className="div-items-content">
-          <div className="items-header">
-            {!isMobile ?
-              <span
-                className="category-label"
+        </div>
+        <div className="div-items-parent">
+          {paginatedItems.map(item => (
+            <ItemsGrid key={item.id} data={item} />
+          ))}
+        </div>
+        {totalPages > 1 && (
+          <div className="pagination">
+            {pages.map(page => (
+              <button
+                key={page}
+                className={`pagination-btn ${page === currentPage ? 'active' : ''}`}
+                onClick={() => setCurrentPage(page)}
               >
-                {category}
-              </span> :
-              <ItemsFilter
-                active={category}
-                inputSearch={filter}
-                onChange={(current) => setCategory(current)}
-              />}
-            <select
-              className="sort-select"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-            >
-              <option value="newest">{t('sort_newest')}</option>
-              <option value="oldest">{t('sort_oldest')}</option>
-              <option value="price_asc">{t('sort_price_asc')}</option>
-              <option value="price_desc">{t('sort_price_desc')}</option>
-            </select>
-          </div>
-          <div className="div-items-parent">
-            {paginatedItems.map((item) => (
-              <ItemsGrid
-                filter={filter}
-                category={category}
-                data={item}
-                key={item.id}
-              />
+                {page}
+              </button>
             ))}
           </div>
-          {totalPages > 1 && (
-            <div className="pagination">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  className={`pagination-btn ${page === currentPage ? 'active' : ''}`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
       </div>
+    </div>
   );
 }

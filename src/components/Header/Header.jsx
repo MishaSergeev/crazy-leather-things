@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuthenticationStatus } from '@nhost/react'
 import { useLocation, useNavigate } from "react-router-dom";
-import { styled } from '@mui/material/styles';
-import { SiEtsy } from 'react-icons/si';
+//import { SiEtsy } from 'react-icons/si';
 import MenuIcon from '@mui/icons-material/Menu';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +12,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from '@mui/icons-material/Language';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
-import { useQty } from '../hooks/QtyContext';
+import { useQty } from '../../hooks/QtyContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import { useLanguage } from '../../context/LanguageContext';
 import Icon from '../Icon/Icon'
 import Button from '../Button/Button';
@@ -30,17 +30,6 @@ import {
   NavLink
 } from "react-router-dom";
 
-const StyledBadge = styled(Badge)(() => ({
-  '& .MuiBadge-badge': {
-    right: '40%',
-    border: `1px solid white`,
-    padding: '0 4px',
-    minWidth: '40%',
-    height: '60%',
-    fontSize: '0.5rem',
-    backgroundColor: 'black',
-  },
-}));
 export default function Header() {
   const [tab, setTab] = useState('')
   const prevTab = useRef(tab);
@@ -53,7 +42,7 @@ export default function Header() {
   const langRef = useRef(null);
   const { language, changeLanguage } = useLanguage('uk');
   const languages = { 'en': 'EN', 'uk': 'UK' }
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMobileMenuToggle = () => {
@@ -112,19 +101,15 @@ export default function Header() {
           </IconButton>
 
           <IconButton>
-            <StyledBadge badgeContent={favoriteQty} color="primary" >
+            <Badge badgeContent={favoriteQty} color="primary" >
               {favoritesSign}
-            </StyledBadge >
+            </Badge >
           </IconButton>
 
           <IconButton>
-            <StyledBadge badgeContent={cartQty} color="primary">
+            <Badge badgeContent={cartQty} color="primary">
               <ShoppingCartIcon className='header-icon' onClick={handleCartOpen} />
-            </StyledBadge >
-          </IconButton>
-
-          <IconButton>
-            {userSign}
+            </Badge >
           </IconButton>
 
           <IconButton onClick={() => setShowLangButtons(prev => !prev)}>
@@ -147,11 +132,15 @@ export default function Header() {
               </div>
             </ClickAwayListener>
           )}
-          <IconButton sx={{ fontSize: "1.5em" }}>
+          
+          <IconButton>
+            {userSign}
+          </IconButton>
+          {/*           <IconButton sx={{ fontSize: "1.5em" }}>
             <a href="https://www.etsy.com/shop/CrazyLeatherThings" target="_blank" rel="noopener noreferrer">
               <SiEtsy fontSize={"1.05rem"} className='header-icon' />
             </a>
-          </IconButton>
+          </IconButton> */}
 
           <Modal open={isModal} onClose={handleClose} isLogin={isModalContent === 'User'}>
             {modalContext}

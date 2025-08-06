@@ -1,33 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useUserData } from '@nhost/react';
-import { gql } from 'graphql-request'
 import { useAuthenticationStatus } from '@nhost/react'
 import CloseIcon from '@mui/icons-material/Close';
 
 import { nhost } from '../../nhost'
-import { useQty } from '../hooks/QtyContext';
-import { useTranslation } from '../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useGlobalData } from '../../context/GlobalDataContext'
-import globalDefaults from "../../context/InitialGlobalData";
 import { useLanguage } from '../../context/LanguageContext';
+import { DELETE_FAVORITES_ITEM } from '../../graphql/queries';
+import globalDefaults from "../../context/InitialGlobalData";
 import ItemCartButton from "../ItemCartButton/ItemCartButton";
 import ItemImg from "../ItemImg/ItemImg";
 
 import './Favorites.css'
 
-const DELETE_FAVORITES_ITEM = gql`
-mutation DeleteCartItem($user_id: uuid!, $item_id: String!) {
-  delete_favorites(
-    where: {
-      user_id: { _eq: $user_id }
-      item_id: { _eq: $item_id }
-    }
-  ) {
-    affected_rows
-  }
-}
-`
 export default function Favorites({ onClose }) {
     const t = useTranslation();
     const { language } = useLanguage();

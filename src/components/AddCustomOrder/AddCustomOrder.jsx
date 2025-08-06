@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
-import { gql } from 'graphql-request';
 
 import { nhost } from '../../nhost';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
+import { GET_LAST_ORDER_NUMBER, UPSERT_CUSTOM_ORDER} from '../../graphql/queries';
 import globalDefaults from "../../context/InitialGlobalData";
 import FormField from "../FormField/FormField";
 import Alert from '../Alert/Alert'
@@ -12,38 +12,6 @@ import Button from '../Button/Button';
 import UploadImage from '../UploadImage/UploadImage';
 
 import './AddCustomOrder.css';
-
-const GET_LAST_ORDER_NUMBER = gql`
-  query GetLastCustomOrderNumber {
-    custom_order(order_by: { order_number: desc }, limit: 1) {
-      order_number
-    }
-  }
-`;
-
-const UPSERT_CUSTOM_ORDER = gql`
-  mutation UpsertCustomOrder(
-    $order_number: Int!,
-    $user_name: String!,
-    $email: String!,
-    $phone: String!,
-    $comment: String!,
-    $src: String!
-  ) {
-    insert_custom_order(
-      objects: {
-        order_number: $order_number,
-        user_name: $user_name,
-        email: $email,
-        phone: $phone,
-        description: $comment,
-        src: $src
-      }
-    ) {
-      affected_rows
-    }
-  }
-`;
 
 export default function AddCustomOrder() {
   const t = useTranslation();
@@ -82,11 +50,11 @@ export default function AddCustomOrder() {
         setAlert({ type: 'success', message: t('alert_success_order') });
         setTimeout(() => setTab('items'), 1500);
       } else {
-        console.error("Помилка при збереженні:", updateRes.error);
+        console.error("Saved update error:", updateRes.error);
         setAlert({ type: 'error', message: t('alert_fail_order') });
       }
     } catch (error) {
-      console.error("Помилка при збереженні:", error);
+      console.error("Saved error:", error);
       setAlert({ type: 'error', message: t('alert_error_order') });
     }
   };

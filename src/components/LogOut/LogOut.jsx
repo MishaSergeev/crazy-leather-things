@@ -1,8 +1,8 @@
 import { useSignOut } from '@nhost/react'
 import { NavLink } from "react-router-dom";
 
-import { useQty } from '../hooks/QtyContext';
-import { useTranslation } from '../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext';
+import { useTranslation } from '../../hooks/useTranslation';
 import globalDefaults from "../../context/InitialGlobalData";
 import Button from "../Button/Button"
 

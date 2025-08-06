@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { nhost } from '../../nhost';
 
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 import Button from '../Button/Button';
 import Alert from '../Alert/Alert';
 import './UploadImage.css';
