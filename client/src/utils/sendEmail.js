@@ -9,8 +9,8 @@ export async function sendEmail(email, subject, orderData, type, mailTo, t, curr
             <br>Номер телефону: ${orderData.delivery_phone}
             <br>Електронна пошта: ${orderData.delivery_email}
             <br>Як краще зв'язатись: ${orderData.delivery_connection}
-            ${type==="Order"?
-            `<br>Опис до замовлення: ${orderData.description}
+            ${type === "Order" ?
+          `<br>Опис до замовлення: ${orderData.description}
             <br>Спосіб оплати: ${orderData.payment_method}
             <br>Спосіб доставки: ${orderData.delivery_method}
             <br>Номер відділення: ${orderData.delivery_branch}
@@ -19,9 +19,9 @@ export async function sendEmail(email, subject, orderData, type, mailTo, t, curr
             <br>Вулиця: ${orderData.delivery_street}
             <br>Будинок: ${orderData.delivery_building}
             <br>Квартира: ${orderData.delivery_apartment}
-            <br>Індекс: ${orderData.delivery_zip}`:``}
-          </p>` : 
-          `<h2> ${t('email_title')}</h2>
+            <br>Індекс: ${orderData.delivery_zip}` : ``}
+          </p>` :
+        `<h2> ${t('email_title')}</h2>
               <p style="margin-top: 10px; margin-bottom: 10px;">
               ${t('email_body_1')}${orderData.user_name}
               <br>${t('email_body_2')}${orderData.order_number}
@@ -60,8 +60,11 @@ export async function sendEmail(email, subject, orderData, type, mailTo, t, curr
       : `<p style="margin-top: 20px;">${t('email_footer_1')}<br>${t('email_footer_2')}<br>${t('email_footer_3')}</p>`}
       </div>`;
     const html = htmlHeader + htmlBody + htmlFooter
-
-    const response = await fetch('/api/send-email', {
+    const API_URL =
+      window.location.hostname === 'localhost'
+        ? 'http://localhost:5000/send-email'
+        : '/api/send-email';
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, subject, html }),

@@ -63,7 +63,7 @@ export default function Header() {
   const handleMouseLeave = () => {
     hideTimer.current = setTimeout(() => {
       setShowUserTabs(false);
-    }, 3000);
+    }, 1500);
   };
   const { cartQty } = useQty();
   const { favoriteQty } = useQty();
