@@ -61,7 +61,7 @@ export async function sendEmail(email, subject, orderData, type, mailTo, t, curr
       </div>`;
     const html = htmlHeader + htmlBody + htmlFooter
 
-    const response = await fetch('/api/send-email'/* 'http://localhost:5000/send-email' */, {
+    const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, subject, html }),
