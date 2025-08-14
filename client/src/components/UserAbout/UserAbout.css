@@ -1,0 +1,34 @@
+.form-userabout-form {
+  overflow: scroll;
+  max-height: calc(100dvh - 6rem);
+  width: 97%;
+  margin: 0 auto;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: inherit;
+}
+
+.form-userabout-form::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.form-userabout-form::-webkit-scrollbar-track {
+  background: none;
+}
+
+.form-userabout-form::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 10px;
+}
+
+.div-userabout-button {
+  width: 50%;
+  margin-left: 25%;
+}
+@media (max-width: 768px) {
+  .form-userabout-form {
+    max-height: calc(107dvh - 4.5rem);
+  }
+}

@@ -1,0 +1,12 @@
+.div-item-favorite {
+    position: relative;
+    cursor: pointer;
+    font-size: calc(0.5em + 1.5vw) !important;
+    margin-left: 100%;
+    transform: translateX(-150%) translateY(50%);
+    z-index: 20;
+}
+
+.div-item-favorite.focus {
+    color: #fff;
+}

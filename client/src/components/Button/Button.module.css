@@ -1,0 +1,36 @@
+.button {
+  padding: 4% 4%;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  margin: 2%;
+  font-size: calc(0.1em + 0.8vw);
+  width: 96%;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button.active {
+  background: #000000;
+  color: #fff;
+}
+
+.button.focus {
+  border: 1px solid #000000;
+}
+
+@media (max-width: 768px) {
+  .button {
+    border: 0.1px solid #000000;
+    font-size: calc(0.6em + 1vw)
+  }
+}

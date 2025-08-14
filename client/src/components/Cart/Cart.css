@@ -1,0 +1,120 @@
+.div-items-cart-parent {
+    width: 100%;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.div-items-cart-container {
+    display: grid;
+    max-height: 80vh;
+    /* height: min-content; */
+    grid-template-rows: calc(2em + 3vw) calc(19em + 3vw) calc(5em + 3vw);
+}
+
+.div-items-cart-parent::-webkit-scrollbar-track {
+    background: none;
+}
+
+.div-items-cart-parent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.div-items-cart-parent::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 10px;
+}
+
+.div-items-cart-child {
+    /* border: 1px solid #fff;
+    border-radius: 5px; */
+    margin: 0.5%;
+    display: grid;
+    font-size: calc(0.3em + 1vw);
+    /* grid-template-columns: 20% 40% 15% 20% 5%; */
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr)) 2em;
+    align-items: center;
+    text-align: center;
+}
+
+.img-item-cart {
+    margin: 3%;
+    display: grid;
+    grid-template-rows: 0 1fr;
+}
+
+.div-title-cart {
+    margin: 0.5%;
+    display: grid;
+    font-size: calc(0.3em + 1vw);
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr)) 2em;
+    /* grid-template-columns: 20% 40% 15% 20% 5%; */
+    align-items: center;
+    text-align: center;
+    background: #000000;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+.div-empty-cart {
+    margin-top: 30vh;
+    text-align: center;
+}
+
+.div-submit-cart-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.div-cart-total {
+    font-size: calc(0.3em + 0.8vw);
+    align-content: center;
+    text-align: right;
+    padding: 3% 3%;
+    margin: 2%;
+    font-weight: bold;
+}
+
+.div-cart-button-wrapper {
+    display: block;
+    margin-top: calc(1.3em + 1vw);
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+@media (max-width: 768px) {
+    .img-item-cart {
+        margin: 1%;
+    }
+
+    .div-items-cart-container {
+        grid-template-rows: 3em 20em 5em;
+    }
+
+    .div-cart-total,
+    .div-title-cart {
+        font-size: calc(0.6em + 0.6vw);
+    }
+
+    .div-title-cart,
+    .div-items-cart-child {
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr)) 2em;
+        font-size: calc(0.6em + 0.6vw);
+    }
+
+    .div-cart-button-wrapper {
+        margin-top: 1.6em;
+    }
+
+/*     .div-submit-cart-container {
+        grid-template-columns: 50% 50%;
+    } */
+
+    .div-items-cart-container {
+        grid-template-rows: 20em 5em;
+    }
+}

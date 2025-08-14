@@ -1,0 +1,15 @@
+.button-item {
+    cursor: pointer;
+    font-size: calc(0.5em + 1.5vw) !important;
+    padding: 6%;
+    margin-left: 100%;
+    transform: translateX(-100%);
+    transition: all 0.3s;
+}
+
+.button-item.focus {
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: #fff
+}

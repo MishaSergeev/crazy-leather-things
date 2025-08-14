@@ -1,0 +1,27 @@
+.swiper-about{
+    width: 60%;
+    margin-left: 20%;
+}
+.title-about{
+    text-align: center;
+    font-size: calc(0.6em + 1vw);
+}
+.body-about{
+    font-size: calc(0.3em + 1vw);
+    height: calc(110dvh - 1.5rem);
+    margin-left: 20%;
+    margin-right: 20%;
+}
+@media (max-width: 768px) {
+.swiper-about{
+    width: 100%;
+    margin-left: 0;
+}
+.title-about{
+    text-align: center;
+}
+.body-about{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+}

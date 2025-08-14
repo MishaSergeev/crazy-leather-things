@@ -1,0 +1,15 @@
+.img-logo {
+    height: calc(1.2em + 1.6vw);
+    display: flex;
+    padding: 0 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: #000000;
+}
+
+@media (max-width: 768px) {
+    .img-logo {
+        height: calc(2.1em + 1.6vw);
+        padding: 0;
+    }
+}

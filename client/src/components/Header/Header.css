@@ -1,0 +1,116 @@
+.header {
+    display: flex;
+    align-items: center;
+    background: #000000;
+}
+
+.header-buttom-container {
+    position: absolute;
+    right: 1%;
+}
+
+.header-buttom-container .MuiIconButton-root {
+    font-size: 0rem;
+}
+
+.header-buttom-container .MuiSvgIcon-root {
+    font-size: calc(1.2em + 1.5vw);
+}
+
+.MuiBadge-root .MuiBadge-badge {
+    right: 40% !important;
+    border: 1px solid white;
+    padding: 0 4px;
+    min-width: 30%;
+    height: 85%;
+    font-size: calc(1em + 0.9vw);
+    background-color: black !important;
+}
+
+.header-scroll {
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+}
+
+.header-icon {
+    padding-right: 0.5em;
+    color: #ffffff;
+}
+
+.language-menu {
+    position: absolute;
+    top: 100%;
+    right: calc(1em + 3.1vw);
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.header-menu-icon {
+    padding: 0 0.5em;
+    color: #ffffff;
+}
+
+.header-user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.header-user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    width: max-content;
+    padding: 0.3rem;
+    background-color: #fff;
+    border: 1px solid #000000;
+    border-radius: 0.5rem;
+}
+
+.mobile-menu {
+    position: fixed;
+    padding: 0 0.5em;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+}
+
+.mobile-menu.open {
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .header-buttom-container .MuiIconButton-root {
+        font-size: 0.8rem;
+        margin-right: 0.9em;
+    }
+
+    .header-buttom-container .MuiSvgIcon-root {
+        padding: 0;
+    }
+
+    .MuiBadge-root .MuiBadge-badge {
+        right: 0% !important;
+        height: 70%;
+        font-size: calc(0.8em + 0.1vw);
+    }
+
+    .language-menu {
+        right: 3.7em;
+    }
+}

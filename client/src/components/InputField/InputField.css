@@ -1,0 +1,47 @@
+.div-inputfield-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: calc(2em + 1vw);
+  margin: 0 calc(2em + 1vw) 0 calc(2em + 1vw);
+  border: 1px solid #000000;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.input-inputfield {
+  width: calc(2em + 1vw);
+  text-align: center;
+  border: none;
+  font-size: 1.1em;
+  background: none;
+  outline: none;
+}
+
+.button-inputfield {
+  width: 2rem;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.button-inputfield:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .div-inputfield-wrapper {
+    height: 1.5rem;
+    margin: 0;
+  }
+
+  .input-inputfield {
+    width: 1rem;
+  }
+}
