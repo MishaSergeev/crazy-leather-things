@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './FormFieldDropDown.css';
 
 export default function FormFieldDropDown({
-  label, value, onChange, t, firstOption, options, type, style, important, width, isInput
+  label, value, onChange, t, firstOption, options, type, style, important, width, isInput, optionsType
 }) {
   const isError = important && !value;
   const [searchTerm, setSearchTerm] = useState('');
@@ -71,7 +71,7 @@ export default function FormFieldDropDown({
           {firstOption && <option value="">{t(firstOption)}</option>}
           {type === 'object'
             ? options?.map((el) => (
-              <option key={el.Ref} value={el.Description}>
+              <option key={el.Ref} value={optionsType?el[optionsType]:el.Description}>
                 {el.Description}
               </option>
             ))

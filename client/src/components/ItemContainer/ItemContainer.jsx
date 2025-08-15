@@ -88,6 +88,7 @@ export default function ItemsContainer() {
             t={t}
             firstOption=""
             options={branches}
+            optionsType="Ref"
             type="object"
             width={!isMobile ? '30%' : '100%'}
           />
