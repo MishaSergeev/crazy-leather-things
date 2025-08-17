@@ -1,0 +1,41 @@
+.div_calendarinput_container {
+  width: 100%;
+}
+
+.input_calendarinput_field {
+  padding: 0.6rem 1rem;
+  font-size: calc(0.3em + 1vw);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border 0.2s ease-in-out;
+}
+
+.input_calendarinput_field:focus {
+  border-color: black;
+}
+
+.react_datepicker__close_icon {
+  background-color: transparent !important;
+  right: 10%;
+  top: 60%;
+  transform: translateY(-40%);
+}
+
+.react_datepicker__close_icon::after {
+  background-color: transparent !important;
+  color: black !important;
+  font-size: 1.2rem;
+  content: '×';
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@media (max-width: 768px) {
+  .input_calendarinput_field {
+    font-size: calc(0.8em + 1vw);
+  }
+}

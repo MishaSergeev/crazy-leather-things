@@ -1,0 +1,71 @@
+.div_items_orders_parent {
+    width: 100%;
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+/*     overflow: scroll;
+    overflow-x: hidden; */
+}
+
+.div_items_orders_container {
+    height: 70vh;
+    display: grid;
+}
+
+.div_items_orders_parent::-webkit-scrollbar-track {
+    background: none;
+}
+
+.div_items_orders_parent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.div_items_orders_parent::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 10px;
+}
+
+.div_items_orders {
+    font-size: calc(0.3em + 1vw);
+    margin: 0.5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    align-items: center;
+    text-align: center;
+}
+
+.img_item_orders {
+    margin: 3%;
+    display: grid;
+    grid-template-rows: 0 1fr;
+}
+
+.div_title_orders {
+    font-size: calc(0.3em + 1vw);
+    margin: 0.5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    align-items: center;
+    text-align: center;
+    background: #000000;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+.div_empty_orders {
+    margin-top: 30vh;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .div_items_orders {
+        font-size: 65%;
+    }
+
+    .div_title_orders {
+        font-size: 65%;
+    }
+
+}

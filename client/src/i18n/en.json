@@ -139,6 +139,7 @@
 
   "placeholder_text": "DD.MM.YYYY",
   "submit": "Submit",
+  "back": "Back",
   "error": "Error: ",
   "search": "Search...",
   "sum": "Sum:",

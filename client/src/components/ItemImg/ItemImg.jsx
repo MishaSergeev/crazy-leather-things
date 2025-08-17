@@ -1,40 +1,42 @@
 import { useState } from 'react'
-import { useLocation } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useLocation, NavLink } from 'react-router-dom'
 
-import ItemFavoriteButton from "../ItemFavoriteButton/ItemFavoriteButton";
-import SwiperItem from '../SwiperItem/SwiperItem';
-import SwiperItemImg from '../SwiperItemimg/SwiperItemImg';
-import Modal from '../Modal/Modal';
+import ItemFavoriteButton from '../ItemFavoriteButton/ItemFavoriteButton'
+import SwiperItem from '../SwiperItem/SwiperItem'
+import SwiperItemImg from '../SwiperItemimg/SwiperItemImg'
+import Modal from '../Modal/Modal'
 
-import './ItemImg.css'
+import classes from './ItemImg.module.css'
 
-export default function ItemImg({ ...props }) {
-    const [isModal, setIsModal] = useState(false)
-    const location = useLocation();
-    const handleOpen = () => {
-        if (location.pathname === "/") {
-            setIsModal(false);
-        } else {
-            setIsModal(true);
-        }
+export default function ItemImg({ data }) {
+  const [isModal, setIsModal] = useState(false)
+  const location = useLocation()
+
+  const handleOpen = () => {
+    if (location.pathname === '/') {
+      setIsModal(false)
+    } else {
+      setIsModal(true)
     }
-    const handleClose = () => setIsModal(false);
-    const src = props.data?.src?.split(",")
-    return (
-        <>
-            <ItemFavoriteButton data={props.data} />
-            <NavLink to={props.data.link}
-                style={{
-                    display: 'contents'
-                }}
-            >
-                <SwiperItem onClick={handleOpen} data={src} id={props.data.id} />
-            </NavLink>
-            <Modal open={isModal} onClose={handleClose} isItemImg={true}>
-                <SwiperItemImg data={src} id={props.data.id} />
-                <h3 className='h3-item-description'>{props.data.description}</h3>
-            </Modal>
-        </>
-    )
+  }
+
+  const handleClose = () => setIsModal(false)
+
+  const src = data?.src?.split(',')
+
+  return (
+    <>
+      <ItemFavoriteButton data={data} />
+      <NavLink
+        to={data.link}
+        style={{ display: 'contents' }}
+      >
+        <SwiperItem onClick={handleOpen} data={src} id={data.id} />
+      </NavLink>
+      <Modal open={isModal} onClose={handleClose} isItemImg={true}>
+        <SwiperItemImg data={src} id={data.id} />
+        <h3 className={classes.h3_item_description}>{data.description}</h3>
+      </Modal>
+    </>
+  )
 }

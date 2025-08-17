@@ -1,0 +1,70 @@
+.label_form_dropdown_text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-weight: bold;
+  font-size: calc(0.3em + 0.8vw);
+  gap: 0.3rem;
+}
+
+.select_form_dropdown_field {
+  padding: 0.6rem 1rem;
+  font-size: calc(0.3em + 0.8vw);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s ease;
+}
+
+.ul_form_dropdown_autocomplete_option {
+  list-style: none !important;
+  position: absolute !important;
+  z-index: 1;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.ul_form_dropdown_autocomplete_option li {
+  list-style: none !important;
+}
+
+.li_form_dropdown_autocomplete_option {
+  font-size: calc(0.3em + 0.8vw);
+  font-weight: normal;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  padding: 8px;
+}
+
+.select_form_dropdown_field:focus {
+  border-color: black;
+}
+
+.dropdown_input_wrapper {
+  position: relative;
+}
+
+.field_error {
+  border: 1px solid red !important;
+}
+
+@media (max-width: 768px) {
+
+  .select_form_dropdown_field {
+    font-size: calc(0.7em + 1vw);
+    border: 1px solid black;
+    border-radius: 6px;
+  }
+
+  .label_form_dropdown_text {
+    font-size: calc(0.7em + 1vw);
+  }
+}

@@ -1,7 +1,9 @@
-import { useState } from "react";
-import CalendarInput from "../CalendarInput/CalendarInput";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import './FormField.css';
+import { useState } from "react"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+import clsx from "clsx"
+
+import CalendarInput from "../CalendarInput/CalendarInput"
+import classes from "./FormField.module.css"
 
 export default function FormField({
   label,
@@ -13,38 +15,35 @@ export default function FormField({
   type,
   style,
   important,
-  exception
+  exception,
 }) {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
   const inputType =
     name === "email"
       ? "email"
       : name === "phone"
-        ? "tel"
-        : type === "password" && showPassword
-          ? "text"
-          : type;
+      ? "tel"
+      : type === "password" && showPassword
+      ? "text"
+      : type
 
-  const isValidEmail = (val) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  const isValidEmail = (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
+  const isValidPhone = (val) => /^\+?\d{10,15}$/.test(val)
 
-  const isValidPhone = (val) =>
-    /^\+?\d{10,15}$/.test(val);
-
-  let isError = false;
+  let isError = false
   if (important) {
     if (!value?.trim()) {
-      isError = true;
+      isError = true
     } else if (inputType === "email" && !isValidEmail(value)) {
-      isError = true;
+      isError = true
     } else if (inputType === "tel" && !isValidPhone(value)) {
-      isError = true;
+      isError = true
     }
   }
 
   return (
-    <label className={style || "label-form-text"}>
+    <label className={style || classes.label_form_text}>
       {t(label)} {name === exception && <>{value}</>}
 
       {type === "calendar" ? (
@@ -52,11 +51,13 @@ export default function FormField({
           value={value}
           onChange={onChange}
           autoComplete={name}
-          className={`input-form-field ${isError ? "field-error" : ""}`}
+          className={clsx(classes.input_form_field, {
+            [classes.field_error]: isError,
+          })}
         />
       ) : (
         name !== exception && (
-          <div className="formfield-input-wrapper">
+          <div className={classes.formfield_input_wrapper}>
             <input
               name={name}
               value={value}
@@ -64,11 +65,13 @@ export default function FormField({
               placeholder={placeholder}
               type={inputType}
               onChange={onChange}
-              className={`input-form-field ${isError ? "field-error" : ""}`}
+              className={clsx(classes.input_form_field, {
+                [classes.field_error]: isError,
+              })}
             />
             {type === "password" && (
               <span
-                className="password-toggle"
+                className={classes.password_toggle}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -78,5 +81,5 @@ export default function FormField({
         )
       )}
     </label>
-  );
+  )
 }

@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { useSignInEmailPassword } from '@nhost/react'
 
-import { useQty } from '../../hooks/QtyContext';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useQty } from '../../hooks/QtyContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import { useGlobalData } from '../../context/GlobalDataContext'
 import { fetchUserProfile, syncCart, syncFavorites } from '../../utils/userDataHandlers'
-import Button from '../Button/Button';
-import FormField from "../FormField/FormField";
+import Button from '../Button/Button'
+import FormField from '../FormField/FormField'
 
-import './LogIn.css'
+import classes from './LogIn.module.css'
 
 export default function LogIn({ onClose }) {
   const { globalData } = useGlobalData()
-  const t = useTranslation();
+  const t = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { signInEmailPassword, isLoading, error, isSuccess } = useSignInEmailPassword()
@@ -42,11 +42,11 @@ export default function LogIn({ onClose }) {
   }
 
   return (
-    <form className="form-login" onSubmit={handleLogin}>
+    <form className={classes.form_login} onSubmit={handleLogin}>
       <FormField
-        key={'login_email'}
-        label={'login_email'}
-        name={"email"}
+        key="login_email"
+        label="login_email"
+        name="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
@@ -54,18 +54,27 @@ export default function LogIn({ onClose }) {
         t={t}
       />
       <FormField
-        key={'login_password'}
-        label={'login_password'}
-        name={"current-password"}
+        key="login_password"
+        label="login_password"
+        name="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder={t('login_password')}
         type="password"
         t={t}
       />
-      {error && <p className="p-login-error">{t('error')}{error.message==='Incorrect email or password'?t('error_email_pass'):error.message || error}</p>}
-      {isSuccess && <p className="p-login-success">{t('login_success')}</p>}
-      <div className="div-login-button-wrapper">
+      {error && (
+        <p className={classes.p_login_error}>
+          {t('error')}
+          {error.message === 'Incorrect email or password'
+            ? t('error_email_pass')
+            : error.message || error}
+        </p>
+      )}
+      {isSuccess && (
+        <p className={classes.p_login_success}>{t('login_success')}</p>
+      )}
+      <div className={classes.div_login_button_wrapper}>
         <Button type="submit" disabled={isLoading}>
           {t('login_submit')}
         </Button>

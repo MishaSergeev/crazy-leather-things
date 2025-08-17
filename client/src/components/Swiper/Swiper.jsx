@@ -1,11 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from 'swiper/modules';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-import "./Swiper.css";
-
 export default function SwiperProd(data) {
   const images = data.data
   const style = data.style

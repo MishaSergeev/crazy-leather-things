@@ -1,13 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; 
 
 import logo from './Icon.png';
+import classes from './Icon.module.css';
 
-import './Icon.css'
-
-export default function Icon({onClick}) {
-    return (      
-      <NavLink onClick={onClick} to="/">
-        <img src={logo} alt="" className="img-logo" />
-      </NavLink>
-    )
-  }
+export default function Icon({ onClick }) {
+  return (      
+    <NavLink onClick={onClick} to="/">
+      <img src={logo} alt="" className={classes.img_logo} />
+    </NavLink>
+  );
+}

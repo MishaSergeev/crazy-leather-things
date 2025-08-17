@@ -1,0 +1,67 @@
+.div_submit_form {
+/*   overflow: scroll;
+  max-height: 70vh; */
+  max-width: 70%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: inherit;
+}
+
+.div_submit_form::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.div_submit_form::-webkit-scrollbar-track {
+  background: none;
+}
+
+.div_submit_form::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 10px;
+}
+
+.h2_submit_title {
+  font-size: calc(0.8em + 1vw);
+  font-weight: bold;
+  text-align: center;
+}
+
+.div_submit_button {
+  width: 50%;
+  margin: 1rem auto;
+}
+
+.city_autocomplete_wrapper {
+  position: relative;
+}
+
+.autocomplete_dropdown {
+  font-size: calc(0.5em + 1vw);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  border: 1px solid #ccc;
+  background: white;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 4px;
+}
+
+.autocomplete_option {
+  font-size: calc(0.3em + 0.8vw);
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.autocomplete_option:hover {
+  background: #f0f0f0;
+}

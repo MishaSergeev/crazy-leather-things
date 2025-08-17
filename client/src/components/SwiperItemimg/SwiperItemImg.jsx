@@ -5,10 +5,8 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { useIsMobile } from '../../hooks/useIsMobile';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
-import "./SwiperItemImg.css";
+import classes from "./SwiperItemImg.module.css";
 
 export default function SwiperItemImg({ data, id, style }) {
   const prevRef = useRef(null);
@@ -45,9 +43,9 @@ export default function SwiperItemImg({ data, id, style }) {
 
   return (
     <div className="swiper-wrapper">
-      {!isMobile && <div ref={prevRef} className="custom-swiper-button-prev">‹</div>}
-      {!isMobile && <div ref={nextRef} className="custom-swiper-button-next">›</div>}
-      <div ref={paginationRef} className="custom-swiper-pagination">›</div>
+      {!isMobile && <div ref={prevRef} className={classes.custom_swiper_button_prev}>‹</div>}
+      {!isMobile && <div ref={nextRef} className={classes.custom_swiper_button_next}>›</div>}
+      <div ref={paginationRef} className={classes.custom_swiper_pagination}>›</div>
       <Swiper
         loop={isLoop}
         slidesPerView={1}

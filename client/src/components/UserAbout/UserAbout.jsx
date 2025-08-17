@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import { useUserData } from '@nhost/react';
+import { useUserData } from "@nhost/react";
 
 import { nhost } from "../../nhost";
-import { useTranslation } from '../../hooks/useTranslation';
-import { GET_PROFILE, INSERT_PROFILE, UPDATE_PROFILE } from '../../graphql/queries';
+import { useTranslation } from "../../hooks/useTranslation";
+import { GET_PROFILE, INSERT_PROFILE, UPDATE_PROFILE } from "../../graphql/queries";
 import FormField from "../FormField/FormField";
 import Button from "../Button/Button";
-import Alert from '../Alert/Alert';
+import Alert from "../Alert/Alert";
 
-import './UserAbout.css';
+import classes from "./UserAbout.module.css";
 
 export default function UserAbout() {
-  const [alert, setAlert] = useState(null)
   const user = useUserData();
+  const t = useTranslation();
+
+  const [alert, setAlert] = useState(null);
+
   const fields = {
     first_name: "",
     last_name: "",
@@ -26,9 +29,9 @@ export default function UserAbout() {
     building: "",
     apartment: "",
     zip_code: "",
-  }
+  };
+
   const [formData, setFormData] = useState(fields);
-  const t = useTranslation();
 
   useEffect(() => {
     if (!user) return;
@@ -51,7 +54,6 @@ export default function UserAbout() {
   };
 
   const handleSubmit = async () => {
-
     if (!user) return;
 
     const profileData = {
@@ -64,35 +66,36 @@ export default function UserAbout() {
         id: user.id,
       });
 
-      const existingProfile = checkRes.data?.profiles_by_pk;
+      const existingProfile = checkRes.data?.profiles[0];
 
       if (existingProfile) {
         const updateRes = await nhost.graphql.request(UPDATE_PROFILE, {
           id: user.id,
           data: formData,
         });
+
         if (updateRes.data) {
-          setAlert({ type: 'success', message: t('alert_success_user_about') })
+          setAlert({ type: "success", message: t("alert_success_user_about") });
         } else {
-          setAlert({ type: 'error', message: t('alert_fail_user_about') });
+          setAlert({ type: "error", message: t("alert_fail_user_about") });
         }
       } else {
         const insertRes = await nhost.graphql.request(INSERT_PROFILE, {
           data: profileData,
         });
         if (insertRes.data) {
-          setAlert({ type: 'success', message: t('alert_success_user_about') })
+          setAlert({ type: "success", message: t("alert_success_user_about") });
         } else {
-          setAlert({ type: 'error', message: t('alert_fail_user_about') });
+          setAlert({ type: "error", message: t("alert_fail_user_about") });
         }
       }
     } catch (error) {
       console.error("error:", error);
-      setAlert({ type: 'error', message: t('alert_fail_user_about') });
+      setAlert({ type: "error", message: t("alert_fail_user_about") });
     }
   };
 
-  const formField = Object.keys(fields).map((key) => (
+  const formFields = Object.keys(fields).map((key) => (
     <FormField
       key={key}
       label={"user_" + key}
@@ -102,25 +105,28 @@ export default function UserAbout() {
       type={key === "birthday" ? "calendar" : "text"}
       t={t}
     />
-  ))
-  return (
-    <>
-      <form className="form-userabout-form">
-        {formField}
-        <div className="div-userabout-button">
-          <Button type="button" onClick={handleSubmit}>
-            {t('user_about_submit')}
-          </Button>
-        </div>
+  ));
 
-        {alert && (
-          <Alert
-            type={alert.type}
-            message={alert.message}
-            onClose={() => setAlert(null)}
-          />
-        )}
-      </form>
-    </>
+  return (
+    <form className={classes.form_userabout_form}>
+      {formFields}
+      <div className={classes.div_userabout_button}>
+        <Button
+          type="button"
+          style={{ border: "1px solid #000000" }}
+          onClick={handleSubmit}
+        >
+          {t("user_about_submit")}
+        </Button>
+      </div>
+
+      {alert && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+        />
+      )}
+    </form>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
+import clsx from "clsx"
 
-import "./Alert.css"
+import classes from "./Alert.module.css"
 
 export default function Alert({ type = "success", message, onClose }) {
   useEffect(() => {
@@ -11,7 +12,7 @@ export default function Alert({ type = "success", message, onClose }) {
   }, [onClose])
 
   return (
-    <div className={`custom-alert ${type}`}>
+    <div className={clsx(classes.custom_alert, classes[type])}>
       <span>{message}</span>
     </div>
   )

@@ -1,0 +1,25 @@
+.form_regist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.div_regist_success {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.div_regist_warning {
+  color: #b08900;
+  font-size: 0.9rem;
+}
+
+.p_regist_error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.div_regist_button_wrapper {
+  width: 50%;
+}

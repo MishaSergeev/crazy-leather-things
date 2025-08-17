@@ -1,0 +1,11 @@
+.h3_item_description {
+    font-size: calc(0.3em + 1vw);
+    color: white;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .h3_item_description {
+        font-size: calc(0.6em + 1vw);
+    }
+}

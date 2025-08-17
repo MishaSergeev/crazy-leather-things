@@ -1,4 +1,4 @@
-.div-item-favorite {
+.div_item_favorite {
     position: relative;
     cursor: pointer;
     font-size: calc(0.5em + 1.5vw) !important;
@@ -7,6 +7,6 @@
     z-index: 20;
 }
 
-.div-item-favorite.focus {
+.div_item_favorite.focus {
     color: #fff;
 }

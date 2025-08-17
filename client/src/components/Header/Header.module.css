@@ -1,0 +1,129 @@
+.header {
+    display: flex;
+    align-items: center;
+    background: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.header_buttom_container {
+    position: absolute;
+    right: 1%;
+}
+
+.header_buttom_container .MuiIconButton-root {
+    font-size: 0rem;
+}
+
+.header_buttom_container .MuiSvgIcon-root {
+    font-size: calc(1.2em + 1.5vw);
+}
+
+.MuiBadge_root .MuiBadge-badge {
+    right: 40% !important;
+    border: 1px solid white;
+    padding: 0 4px;
+    min-width: 30%;
+    height: 85%;
+    font-size: calc(1em + 0.9vw);
+    background-color: black !important;
+}
+
+.header_scroll {
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+}
+
+.header_icon {
+    padding-right: 0.5em;
+    color: #ffffff;
+}
+
+.language_menu {
+    position: absolute;
+    top: 100%;
+    right: calc(2.5em + 2.2vw);
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.header_menu_icon {
+    padding: 0 0.5em;
+    color: #ffffff;
+}
+
+.header_user_menu_container {
+    position: relative;
+    display: inline-block;
+}
+
+.header_user_menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 100;
+    width: max-content;
+    padding: 0.3rem;
+    background-color: #fff;
+    border: 1px solid #000000;
+    border-radius: 0.5rem;
+}
+.div_main_tabs_section{
+    margin-top: calc(1.2em + 1.6vw);
+    z-index: 30;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+}
+.mobile_menu {
+    position: fixed;
+    padding: 0 0.5em;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+}
+
+.mobile_menu.open {
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .header_buttom_container .MuiIconButton-root {
+        font-size: 0.8rem;
+        margin-right: 0.9em;
+    }
+
+    .header_buttom_container .MuiSvgIcon-root {
+        padding: 0;
+    }
+
+    .MuiBadge_root .MuiBadge-badge {
+        right: 0% !important;
+        height: 70%;
+        font-size: calc(0.8em + 0.1vw);
+    }
+
+    .language_menu {
+        right: 3em;
+    }
+}

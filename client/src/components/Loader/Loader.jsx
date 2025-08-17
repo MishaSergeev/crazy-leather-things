@@ -1,19 +1,19 @@
-import logo from "./logo192.png";
-import "./Loader.css";
+import logo from './logo192.png'
+import classes from './Loader.module.css'
 
 const Loader = () => {
   return (
-    <div className="loader-backdrop">
-      <div className="loader-wrapper">
+    <div className={classes.loader_backdrop}>
+      <div className={classes.loader_wrapper}>
         <img
           src={logo}
           alt="Loading..."
-          className="loader-logo"
+          className={classes.loader_logo}
         />
-        <div className="loader-glow"></div>
+        <div className={classes.loader_glow}></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

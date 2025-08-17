@@ -1,143 +1,165 @@
-import { useState, useRef } from 'react';
-import { nhost } from '../../nhost';
+import { useState, useRef } from "react";
+import { nhost } from "../../nhost";
 
-import { useTranslation } from '../../hooks/useTranslation';
-import Button from '../Button/Button';
-import Alert from '../Alert/Alert';
-import './UploadImage.css';
+import { useTranslation } from "../../hooks/useTranslation";
+import Button from "../Button/Button";
+import Alert from "../Alert/Alert";
+
+import classes from "./UploadImage.module.css";
 
 export default function UploadImage({ value = [], onChange, label }) {
-    const t = useTranslation();
-    const [images, setImages] = useState(value);
-    const [alert, setAlert] = useState(null)
-    const dragItemIndex = useRef(null);
-    const dragOverItemIndex = useRef(null);
+  const t = useTranslation();
 
-    const updateImages = (newImages) => {
-        setImages(newImages);
-        if (onChange) {
-            onChange(newImages);
-        }
-    };
+  const [images, setImages] = useState(value);
+  const [alert, setAlert] = useState(null);
 
-    const handleImageRemove = async (index) => {
-        const imageUrl = images[index];
-        const fileId = imageUrl.split('/').pop();
+  const dragItemIndex = useRef(null);
+  const dragOverItemIndex = useRef(null);
 
-        try {
-            await nhost.storage.delete({ fileId });
-            const updated = [...images];
-            updated.splice(index, 1);
-            updateImages(updated);
-        } catch (error) {
-            console.error(t('alert_error_upload_image_1'), error);
-            setAlert({ type: 'error', message: t('alert_error_upload_image_1') });
-        }
-    };
+  const updateImages = (newImages) => {
+    setImages(newImages);
+    if (onChange) {
+      onChange(newImages);
+    }
+  };
 
-    const handleImageUpload = async (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length === 0) return;
+  const handleImageRemove = async (index) => {
+    const imageUrl = images[index];
+    const fileId = imageUrl.split("/").pop();
 
-        const uploadedUrls = [];
-        for (const file of files) {
-            const result = await nhost.storage.upload({ file });
-            if (result.fileMetadata) {
-                const publicUrl = nhost.storage.getPublicUrl({ fileId: result.fileMetadata.id });
-                uploadedUrls.push(publicUrl);
-            } else {
-                setAlert({ type: 'error', message: (t('alert_error_upload_image_2') + file.name) });
-            }
-        }
+    try {
+      await nhost.storage.delete({ fileId });
+      const updated = [...images];
+      updated.splice(index, 1);
+      updateImages(updated);
+    } catch (error) {
+      console.error(t("alert_error_upload_image_1"), error);
+      setAlert({ type: "error", message: t("alert_error_upload_image_1") });
+    }
+  };
 
-        updateImages([...images, ...uploadedUrls]);
-        e.target.value = null;
-    };
+  const handleImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
 
-    const handleDragStart = (index) => {
-        dragItemIndex.current = index;
-    };
+    const uploadedUrls = [];
+    for (const file of files) {
+      const result = await nhost.storage.upload({ file });
+      if (result.fileMetadata) {
+        const publicUrl = nhost.storage.getPublicUrl({
+          fileId: result.fileMetadata.id,
+        });
+        uploadedUrls.push(publicUrl);
+      } else {
+        setAlert({
+          type: "error",
+          message: t("alert_error_upload_image_2") + file.name,
+        });
+      }
+    }
 
-    const handleDragEnter = (index) => {
-        dragOverItemIndex.current = index;
-        const newImages = [...images];
-        const draggedItemContent = newImages[dragItemIndex.current];
-        newImages.splice(dragItemIndex.current, 1);
-        newImages.splice(dragOverItemIndex.current, 0, draggedItemContent);
-        dragItemIndex.current = dragOverItemIndex.current;
-        dragOverItemIndex.current = null;
-        updateImages(newImages);
-    };
+    updateImages([...images, ...uploadedUrls]);
+    e.target.value = null;
+  };
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+  const handleDragStart = (index) => {
+    dragItemIndex.current = index;
+  };
 
-    const handleDrop = async (e) => {
-        e.preventDefault();
-        const dtFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-        if (dtFiles.length === 0) return;
+  const handleDragEnter = (index) => {
+    dragOverItemIndex.current = index;
+    const newImages = [...images];
+    const draggedItemContent = newImages[dragItemIndex.current];
+    newImages.splice(dragItemIndex.current, 1);
+    newImages.splice(dragOverItemIndex.current, 0, draggedItemContent);
+    dragItemIndex.current = dragOverItemIndex.current;
+    dragOverItemIndex.current = null;
+    updateImages(newImages);
+  };
 
-        const uploadedUrls = [];
-        for (const file of dtFiles) {
-            const result = await nhost.storage.upload({ file });
-            if (result.fileMetadata) {
-                const publicUrl = nhost.storage.getPublicUrl({ fileId: result.fileMetadata.id });
-                uploadedUrls.push(publicUrl);
-            } else {
-                setAlert({ type: 'error', message: (t('alert_error_upload_image_2') + file.name) });
-            }
-        }
-        updateImages([...images, ...uploadedUrls]);
-    };
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
 
-    return (
-        <label className="label-upload-image">{label}
-            <div
-                className="div-upload-image-dropzone"
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                onClick={() => document.getElementById('fileInput').click()}
-            >
-                {t('upload_image')}
-            </div>
-
-            <div className="div-upload-image-preview-container">
-                {images.map((url, index) => (
-                    <div
-                        key={url}
-                        className="div-upload-image-item"
-                        draggable
-                        onDragStart={() => handleDragStart(index)}
-                        onDragEnter={() => handleDragEnter(index)}
-                        onDragOver={handleDragOver}
-                        title="Drag to sort"
-                    >
-                        <img
-                            src={url}
-                            alt={`img-${index}`}
-                            className="img-upload-image"
-                        />
-                        <Button
-                            className="button-upload-image-remove"
-                            onClick={() => handleImageRemove(index)}
-                            aria-label={`Remove img ${index + 1}`}
-                        >
-                            ×
-                        </Button>
-                    </div>
-                ))}
-            </div>
-
-            <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageUpload}
-                style={{ display: 'none' }}
-            />
-            {alert && <Alert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-        </label>
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    const dtFiles = Array.from(e.dataTransfer.files).filter((f) =>
+      f.type.startsWith("image/")
     );
+    if (dtFiles.length === 0) return;
+
+    const uploadedUrls = [];
+    for (const file of dtFiles) {
+      const result = await nhost.storage.upload({ file });
+      if (result.fileMetadata) {
+        const publicUrl = nhost.storage.getPublicUrl({
+          fileId: result.fileMetadata.id,
+        });
+        uploadedUrls.push(publicUrl);
+      } else {
+        setAlert({
+          type: "error",
+          message: t("alert_error_upload_image_2") + file.name,
+        });
+      }
+    }
+    updateImages([...images, ...uploadedUrls]);
+  };
+
+  return (
+    <label className={classes.label_upload_image}>
+      {label}
+      <div
+        className={classes.div_upload_image_dropzone}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onClick={() => document.getElementById("fileInput").click()}
+      >
+        {t("upload_image")}
+      </div>
+
+      <div className={classes.div_upload_image_preview_container}>
+        {images.map((url, index) => (
+          <div
+            key={url}
+            className={classes.div_upload_image_item}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragEnter={() => handleDragEnter(index)}
+            onDragOver={handleDragOver}
+            title="Drag to sort"
+          >
+            <img
+              src={url}
+              alt={`img-${index}`}
+              className={classes.img_upload_image}
+            />
+            <Button
+              className={classes.button_upload_image_remove}
+              onClick={() => handleImageRemove(index)}
+              aria-label={`Remove img ${index + 1}`}
+            >
+              ×
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImageUpload}
+        style={{ display: "none" }}
+      />
+      {alert && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+        />
+      )}
+    </label>
+  );
 }

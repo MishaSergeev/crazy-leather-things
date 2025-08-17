@@ -1,31 +1,44 @@
 import { useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import clsx from 'clsx'
 
 import classes from './Modal.module.css'
 
 export default function Modal({ children, open, onClose, isItemImg, isLogin }) {
-
   const dialog = useRef()
 
   const handleClick = (event) => {
     if (event.target === dialog.current) {
-      onClose();
+      onClose()
     }
-  };
+  }
+
   useEffect(() => {
     if (open) {
-      dialog.current?.showModal();
+      dialog.current?.showModal()
     } else {
-      dialog.current?.close();
+      dialog.current?.close()
     }
   }, [open])
 
   return createPortal(
     <dialog
-      className={isItemImg && open ? `${classes.dialog} ${classes.itemimg}` : isLogin&&open?`${classes.dialog} ${classes.modal_content_login}`:classes.dialog}
-      ref={dialog} onClick={handleClick}>
-      <div className={isItemImg && open ? `${classes.modal_content} ${classes.modal_content_itemimg}` :
-       classes.modal_content}>{children}</div>
+      ref={dialog}
+      onClick={handleClick}
+      className={clsx(
+        classes.dialog,
+        isItemImg && open && classes.itemimg,
+        isLogin && open && classes.modal_content_login
+      )}
+    >
+      <div
+        className={clsx(
+          classes.modal_content,
+          isItemImg && open && classes.modal_content_itemimg
+        )}
+      >
+        {children}
+      </div>
     </dialog>,
     document.getElementById('modal')
   )

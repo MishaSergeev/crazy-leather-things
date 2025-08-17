@@ -11,7 +11,7 @@
   "sort_price_asc": "За ціною дешевше",
   "sort_price_desc": "За ціною дорожче",
   "cart_empty": "Кошик пустий",
-  "favorites_empty": "",
+  "favorites_empty": "Список бажанного пустий",
   "cart_submit": "Оформити замовлення",
   "cart_сancel": "Продовжити покупки",
 
@@ -139,6 +139,7 @@
 
   "placeholder_text": "ДД.ММ.РРРР",
   "submit": "Надіслати",
+  "back": "Назад",
   "error": "Помилка: ",
   "search": "Пошук...",
   "sum": "Сума:",

@@ -1,60 +1,73 @@
-import { useState, useEffect } from 'react';
-import './FormFieldDropDown.css';
+import { useState, useEffect } from "react"
+import clsx from "clsx"
+
+import classes from "./FormFieldDropDown.module.css"
 
 export default function FormFieldDropDown({
-  label, value, onChange, t, firstOption, options, type, style, important, width, isInput, optionsType
+  label,
+  value,
+  onChange,
+  t,
+  firstOption,
+  options,
+  type,
+  style,
+  important,
+  width,
+  isInput,
+  optionsType,
 }) {
-  const isError = important && !value;
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("")
+  const [showDropdown, setShowDropdown] = useState(false)
 
-  const list = type === 'object'
-    ? options?.map((el) => el.Description)
-    : options;
+  const isError = important && !value
 
-  const filteredOptions = list?.filter(opt =>
+  const list = type === "object" ? options?.map((el) => el.Description) : options
+
+  const filteredOptions = list?.filter((opt) =>
     t(opt).toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  )
 
   const handleSelect = (selected) => {
-    onChange({ target: { value: selected } });
-    setSearchTerm(selected);
-    setShowDropdown(false);
-    console.log('showDropdown', showDropdown)
-  };
+    onChange({ target: { value: selected } })
+    setSearchTerm(selected)
+    setShowDropdown(false)
+  }
+
   useEffect(() => {
-    setSearchTerm(value || '');
-  }, [value]);
+    setSearchTerm(value || "")
+  }, [value])
 
   return (
     <label
-      className={style || "label-form-dropdown-text"}
+      className={style || classes.label_form_dropdown_text}
       style={{ width }}
     >
       {t(label)}
 
       {isInput ? (
-        <div className="dropdown-input-wrapper">
+        <div className={classes.dropdown_input_wrapper}>
           <input
             type="text"
-            value={searchTerm || value || ''}
+            value={searchTerm || value || ""}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setShowDropdown(true);
-              onChange({ target: { value: e.target.value } });
+              setSearchTerm(e.target.value)
+              setShowDropdown(true)
+              onChange({ target: { value: e.target.value } })
             }}
-            onFocus={() => setSearchTerm('')}
-            className={`select-form-dropdown-field ${isError ? 'field-error' : ''}`}
+            onFocus={() => setSearchTerm("")}
+            className={clsx(classes.select_form_dropdown_field, {
+              [classes.field_error]: isError,
+            })}
           />
 
           {showDropdown && filteredOptions?.length > 0 && (
-            <ul className="ul-form-dropdown-autocomplete-option">
+            <ul className={classes.ul_form_dropdown_autocomplete_option}>
               {filteredOptions.map((opt) => (
                 <li
-                  className="li-form-dropdown-autocomplete-option"
                   key={opt}
+                  className={classes.li_form_dropdown_autocomplete_option}
                   onClick={() => handleSelect(opt)}
-                  style={{ padding: '8px', cursor: 'pointer' }}
                 >
                   {t(opt)}
                 </li>
@@ -66,22 +79,27 @@ export default function FormFieldDropDown({
         <select
           value={value}
           onChange={onChange}
-          className={`select-form-dropdown-field ${isError ? 'field-error' : ''}`}
+          className={clsx(classes.select_form_dropdown_field, {
+            [classes.field_error]: isError,
+          })}
         >
           {firstOption && <option value="">{t(firstOption)}</option>}
-          {type === 'object'
+          {type === "object"
             ? options?.map((el) => (
-              <option key={el.Ref} value={optionsType?el[optionsType]:el.Description}>
-                {el.Description}
-              </option>
-            ))
+                <option
+                  key={el.Ref}
+                  value={optionsType ? el[optionsType] : el.Description}
+                >
+                  {el.Description}
+                </option>
+              ))
             : options?.map((el) => (
-              <option key={el} value={el}>
-                {t(el)}
-              </option>
-            ))}
+                <option key={el} value={el}>
+                  {t(el)}
+                </option>
+              ))}
         </select>
       )}
     </label>
-  );
+  )
 }

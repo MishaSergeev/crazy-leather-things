@@ -1,0 +1,139 @@
+.div_item_page {
+    margin-top: calc(2.6em + 3.2vw);
+    /*     overflow: scroll;
+    max-height: 90vh;
+    overflow-x: hidden; */
+}
+
+.div_item_page::-webkit-scrollbar {
+    width: 8px;
+}
+
+.div_item_page::-webkit-scrollbar-track {
+    background: none
+}
+
+.div_item_page::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 10px;
+}
+
+.div_item_parent_page {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: start;
+}
+
+.div_item_page_container {
+    display: grid;
+    grid-template-columns: 70% 20%;
+}
+
+.div_item_page_img {
+    margin: 3%;
+    display: grid;
+    grid-template-rows: 0 1fr;
+}
+
+.img_item_page_img {
+    width: 100%;
+}
+
+.div_item_page_info {
+    width: 100%;
+}
+
+.button_item {
+    margin-left: 37%;
+}
+
+.div_item_page_footer {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.div_item_page_button_wrapper {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.h3_item_page {
+    display: flex;
+    align-items: center;
+    font-size: calc(0.3em + 1vw);
+    margin-left: 1%;
+}
+
+.h2_item_page {
+    width: 60%;
+    margin-left: 20.5%;
+    margin-right: 20.5%;
+    text-align: center;
+}
+
+.div_itempage_description {
+    padding: 1%;
+    text-align: justify;
+    margin-bottom: 1rem;
+    font-size: calc(0.3em + 1vw);
+    line-height: 1.4;
+}
+
+.div_itempage_attrs_row {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: calc(0.3em + 1vw);
+}
+
+.span_itempage_label {
+    text-align: left;
+    font-weight: bold;
+    padding-left: 5%;
+}
+
+.span_itempage_value {
+    text-align: right;
+    padding-right: 5%;
+}
+
+@media (max-width: 768px) {
+
+    .div_item_page {
+        margin-top: calc(1.4em + 1.6vw);
+    }
+
+    .div_itempage_description,
+    .div_itempage_attrs_row,
+    .h3_item_page {
+        font-size: calc(0.6em + 1vw);
+    }
+
+    .div_item_parent_page {
+        width: 98%;
+        display: block;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+
+    .div_item_page_footer {
+        width: 98%;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+}

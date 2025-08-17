@@ -3,7 +3,7 @@ export const DELIVERY_PROVIDERS = {
         name: 'Нова пошта',
         src: 'https://api.novaposhta.ua/v2.0/json/',
         parseSrc: () => 'https://api.novaposhta.ua/v2.0/json/',
-        apiKey: process.env.REACT_APP_NOVA_POSHTA_API_KEY,
+        apiKey: import.meta.env.VITE_NOVA_POSHTA_API_KEY,
         cityRequest: {
             modelName: 'Address',
             calledMethod: 'searchSettlements',

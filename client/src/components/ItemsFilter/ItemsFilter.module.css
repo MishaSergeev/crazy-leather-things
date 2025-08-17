@@ -1,0 +1,16 @@
+.item_filter {
+    height: 100dvh;
+    width: 20%;
+    padding: 0.5em;
+}
+
+.sort_select {
+    padding: 0.6rem 1rem;
+    font-size: calc(0.7em + 0.8vw);
+    border: 1px solid black;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 0.2s ease;
+}

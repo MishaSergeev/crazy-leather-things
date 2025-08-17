@@ -1,0 +1,11 @@
+.div_user_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.div_user_input {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 40%)
+}

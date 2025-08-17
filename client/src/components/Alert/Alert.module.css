@@ -1,0 +1,27 @@
+.custom_alert {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: #fff;
+  border-left: 5px solid #4caf50;
+  color: #222;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  z-index: 1000;
+  max-width: 300px;
+  font-family: 'Arial', sans-serif;
+}
+
+.custom_alert.error {
+  border-left-color: #f44336;
+}
+
+.custom_alert.success {
+  border-left-color: #4caf50;
+}
+
+.custom_alert.warning {
+  border-left-color: #ff9800;
+}

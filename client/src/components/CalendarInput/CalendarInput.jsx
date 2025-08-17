@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-
-import { useTranslation } from '../../hooks/useTranslation';
 import DatePicker from 'react-datepicker'
 
+import { useTranslation } from '../../hooks/useTranslation'
+
 import 'react-datepicker/dist/react-datepicker.css'
-import './CalendarInput.css'
+import classes from './CalendarInput.module.css'
 
 export default function CalendarInput({ value, onChange }) {
-  const [localDate, setLocalDate] = useState(value || null)
   const t = useTranslation()
+  const [localDate, setLocalDate] = useState(value || null)
 
   useEffect(() => {
     setLocalDate(value || null)
@@ -20,13 +20,13 @@ export default function CalendarInput({ value, onChange }) {
   }
 
   return (
-    <div className="div-calendarinput-container">
+    <div className={classes.div_calendarinput_container}>
       <DatePicker
         selected={localDate}
         onChange={handleChange}
         dateFormat="dd.MM.yyyy"
         placeholderText={t('placeholder_text')}
-        className="input-calendarinput-field"
+        className={classes.input_calendarinput_field}
         isClearable
       />
     </div>

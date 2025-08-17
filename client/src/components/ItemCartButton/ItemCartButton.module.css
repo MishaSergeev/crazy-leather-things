@@ -1,4 +1,4 @@
-.button-item {
+.button_item {
     cursor: pointer;
     font-size: calc(0.5em + 1.5vw) !important;
     padding: 6%;
@@ -7,7 +7,7 @@
     transition: all 0.3s;
 }
 
-.button-item.focus {
+.button_item.focus {
     background-color: #000000;
     border: 1px solid #000000;
     border-radius: 5px;

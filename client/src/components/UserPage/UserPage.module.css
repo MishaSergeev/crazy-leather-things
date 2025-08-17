@@ -1,0 +1,42 @@
+.div_user_page {
+    display: flex;
+    margin-top: calc(2.6em + 4vw);
+}
+
+.div_user_page_tabs {
+    width: 20%;
+    padding: 0.5em;
+}
+
+.div_user_page_content {
+    width: 80%;
+    padding: 0.5em;
+}
+.mobile_menu {
+    position: fixed;
+    padding: 0 0.5em;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+}
+
+.mobile_menu.open {
+    left: 0;
+}
+@media (max-width: 768px) {
+.div_user_page_content{
+    width: 100%;
+    padding: 0;
+}
+.div_user_page {
+    margin-top: calc(1.4em + 3vw);
+}
+}
