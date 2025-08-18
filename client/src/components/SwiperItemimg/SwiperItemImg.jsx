@@ -4,11 +4,9 @@ import { Pagination, Navigation } from 'swiper/modules';
 
 import { useIsMobile } from '../../hooks/useIsMobile';
 
-import 'swiper/css';
-
 import classes from "./SwiperItemImg.module.css";
 
-export default function SwiperItemImg({ data, id, style }) {
+export default function SwiperItemImg({ data, id }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const paginationRef = useRef(null);
@@ -23,7 +21,7 @@ export default function SwiperItemImg({ data, id, style }) {
   }, [data]);
 
   const listOfSlide = data.map((el, index) =>
-    <SwiperSlide key={'img' + index + id} style={style}>
+    <SwiperSlide key={'img' + index + id}>
       <img src={el} alt="" />
     </SwiperSlide>
   );

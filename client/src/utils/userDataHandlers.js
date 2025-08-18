@@ -3,6 +3,7 @@ import globalDefaults from '../context/InitialGlobalData';
 import { GET_PROFILE, GET_CART, GET_FAVORITES, UPSERT_CART } from '../graphql/queries';
 
 export async function fetchUserProfile(userId) {
+  globalDefaults.User.id = userId?userId:''
   const { data, error } = await nhost.graphql.request(GET_PROFILE, { id: userId });
   if (error) throw error;
   if (data?.profiles && data?.profiles.length > 0) {

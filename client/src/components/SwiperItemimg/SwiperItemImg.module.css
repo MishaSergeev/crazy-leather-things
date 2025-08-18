@@ -49,5 +49,6 @@
 @media (max-width: 768px) {
   .custom_swiper_pagination {
     font-size: calc(0.8em + 1vw);
+    margin: 0;
   }
 }

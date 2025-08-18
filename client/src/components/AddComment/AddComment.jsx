@@ -39,7 +39,7 @@ export default function AddComment(...props) {
         ...UserData,
         src: src
       });
-      console.log('updateRes', updateRes)
+
       if (updateRes.data) {
         setAlert({ type: 'success', message: 'Відгук збереженний!' });
       } else {

@@ -22,6 +22,7 @@ export default function LogIn({ onClose }) {
     e.preventDefault()
 
     const result = await signInEmailPassword(email, password)
+
     if (result.isError || !result.user) {
       console.error('Login error:', result.error || 'No user')
       return

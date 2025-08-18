@@ -3,6 +3,7 @@ import { useSignUpEmailPassword } from '@nhost/react'
 import clsx from 'clsx'
 
 import { useTranslation } from '../../hooks/useTranslation'
+import { fetchUserProfile } from '../../utils/userDataHandlers'
 import Button from '../Button/Button'
 import FormField from "../FormField/FormField"
 
@@ -25,16 +26,21 @@ export default function Registration({ onClose }) {
       return
     }
 
-    const { error } = await signUpEmailPassword(email, password)
+    const result = await signUpEmailPassword(email, password)
 
-    if (error) {
-      setError(error.message)
+    if (result.isError || !result.user) {
+      console.error('Registration error:', result.error || 'No user')
       return
-    } else {
-      setError(null)
     }
+    
+    const userId = result.user.id
 
-    onClose()
+    try {
+      await fetchUserProfile(userId)
+      onClose()
+    } catch (err) {
+      console.error('Post-login error:', err)
+    }
   }
 
   return (

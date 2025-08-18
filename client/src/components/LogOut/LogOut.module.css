@@ -1,4 +1,5 @@
 .div_logout_button {
+    margin-top: calc(2.1em + 1.6vw);
     width: 50%;
     margin-left: 25%;
 }

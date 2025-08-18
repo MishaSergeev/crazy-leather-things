@@ -1,5 +1,5 @@
 .div_item_page {
-    margin-top: calc(2.6em + 3.2vw);
+    margin-top: calc(2.6em + 5.2vw);
     /*     overflow: scroll;
     max-height: 90vh;
     overflow-x: hidden; */
@@ -78,6 +78,7 @@
 }
 
 .h2_item_page {
+    font-size: calc(.3em + 1vw);
     width: 60%;
     margin-left: 20.5%;
     margin-right: 20.5%;
@@ -115,7 +116,7 @@
 @media (max-width: 768px) {
 
     .div_item_page {
-        margin-top: calc(1.4em + 1.6vw);
+        margin-top: calc(2.4em + 3.2vw);
     }
 
     .div_itempage_description,
