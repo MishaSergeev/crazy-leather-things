@@ -2,21 +2,25 @@ import { useState, useRef, useEffect } from "react"
 import { useAuthenticationStatus } from "@nhost/react"
 import { useLocation, useNavigate, Outlet } from "react-router-dom"
 import MenuIcon from "@mui/icons-material/Menu"
-import Badge from "@mui/material/Badge"
-import IconButton from "@mui/material/IconButton"
+import { IconButton, Popper, Paper, MenuList, MenuItem, Badge, ClickAwayListener } from '@mui/material';
+//import List from "@mui/material/List"
+//import ListItem from "@mui/material/ListItem"
+//import ListItemText from "@mui/material/ListItemText"
+//import Badge from "@mui/material/Badge"
+//import IconButton from "@mui/material/IconButton"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import SearchIcon from "@mui/icons-material/Search"
 import LanguageIcon from "@mui/icons-material/Language"
-import ClickAwayListener from "@mui/material/ClickAwayListener"
+//import ClickAwayListener from "@mui/material/ClickAwayListener";
 import clsx from "clsx"
 
 import { useQty } from "../../hooks/QtyContext"
 import { useIsMobile } from "../../hooks/useIsMobile"
 import { useLanguage } from "../../context/LanguageContext"
 import Icon from "../Icon/Icon"
-import Button from "../Button/Button"
+//import Button from "../Button/Button"
 import TabsSection from "../TabsSection/TabsSection"
 import SearchInput from "../SearchInput/SaerchInput"
 import Cart from "../Cart/Cart"
@@ -30,13 +34,21 @@ export default function Header() {
   const [isModal, setIsModal] = useState(false)
   const [isModalContent, setIsModalContent] = useState("")
   const [isModalSearch, setIsModalSearch] = useState(false)
-  const [showLangButtons, setShowLangButtons] = useState(false)
+  //const [showLangButtons, setShowLangButtons] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showUserTabs, setShowUserTabs] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleToggle = (event) => {
+    console.log('event.currentTarget', event.currentTarget)
+    setAnchorEl(open ? null : event.currentTarget);
+  };
+
 
   const prevTab = useRef(tab)
   const hideTimer = useRef(null)
-  const langRef = useRef(null)
+  //const langRef = useRef(null)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -135,10 +147,10 @@ export default function Header() {
   )
 
   const favoritesSign = isAuthenticated ? (
-      <FavoriteBorderIcon className={classes.header_icon}             
+    <FavoriteBorderIcon className={classes.header_icon}
       onClick={() => {
-              navigate("/Favorites")
-            }}/>
+        navigate("/Favorites")
+      }} />
   ) : (
     <FavoriteBorderIcon
       className={classes.header_icon}
@@ -181,29 +193,33 @@ export default function Header() {
             </Badge>
           </IconButton>
 
-          <IconButton onClick={() => setShowLangButtons((prev) => !prev)}>
+          <IconButton onClick={handleToggle}>
             <LanguageIcon className={classes.header_icon} />
           </IconButton>
 
-          {showLangButtons && (
-            <ClickAwayListener onClickAway={() => setShowLangButtons(false)}>
-              <div ref={langRef} className={classes.language_menu}>
-                {Object.keys(languages).map((key) => (
-                  <Button
-                    key={key}
-                    style={{ border: "1px solid #fff" }}
-                    onClick={() => {
-                      changeLanguage(key)
-                      setShowLangButtons(false)
-                    }}
-                    disabled={language === key}
-                  >
-                    {languages[key]}
-                  </Button>
-                ))}
-              </div>
+          <Popper
+            open={open}
+            anchorEl={anchorEl}
+            placement="bottom-start"
+            disablePortal={false}
+            style={{ zIndex: 1300 }}
+          >
+            <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+              <Paper>
+                <MenuList>
+                  {Object.keys(languages).map((key) => (
+                    <MenuItem
+                      key={key}
+                      style={{ border: "1px solid #fff", fontSize: 'calc(0.5em + 0.4vw)', padding: '0.2em 1em', minHeight:'0'}}
+                      onClick={() => { changeLanguage(key); setAnchorEl(null) }}
+                      disabled={language === key} >
+                      {languages[key]}
+                    </MenuItem>))}
+                </MenuList>
+              </Paper>
             </ClickAwayListener>
-          )}
+          </Popper>
+
 
           {userSign}
 

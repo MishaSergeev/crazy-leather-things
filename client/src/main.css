@@ -44,6 +44,8 @@ code {
 }
 
 .MuiBadge-badge {
+  position: absolute !important;
+  right: 35% !important;
   border: 1px solid white;
   background-color: black !important;
 }
@@ -87,5 +89,9 @@ code {
   main {
     margin-top: calc(2.1em + 1.6vw);
     /* max-height: calc(107dvh - 4.5rem); */
+  }
+
+  .MuiBadge-badge {
+    right: 20% !important;
   }
 }
